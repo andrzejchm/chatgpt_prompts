@@ -1,0 +1,3 @@
+class ChatgptPromptsTextStyles {
+  const ChatgptPromptsTextStyles();
+}
