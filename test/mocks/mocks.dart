@@ -9,6 +9,7 @@ import '../features/app_init/mocks/app_init_mocks.dart';
 import '../features/auth/mocks/auth_mocks.dart';
 import 'mock_definitions.dart';
 
+import '../features/main/mocks/main_mocks.dart';
 //DO-NOT-REMOVE IMPORTS_MOCKS
 
 
@@ -38,6 +39,7 @@ class Mocks {
   static void init() {
     AppInitMocks.init();
     AuthMocks.init();
+MainMocks.init();
 //DO-NOT-REMOVE FEATURE_MOCKS_INIT
 
     _initMocks();

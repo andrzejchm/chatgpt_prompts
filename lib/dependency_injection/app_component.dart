@@ -4,6 +4,7 @@ import 'package:chatgpt_prompts/core/utils/current_time_provider.dart';
 import 'package:chatgpt_prompts/features/app_init/dependency_injection/feature_component.dart' as app_init;
 import 'package:chatgpt_prompts/features/auth/dependency_injection/feature_component.dart' as auth;
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
+import 'package:chatgpt_prompts/features/main/dependency_injection/feature_component.dart' as main;
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 final getIt = GetIt.instance;
@@ -12,6 +13,7 @@ final getIt = GetIt.instance;
 void configureDependencies() {
   app_init.configureDependencies();
   auth.configureDependencies();
+main.configureDependencies();
 //DO-NOT-REMOVE FEATURE_COMPONENT_INIT
 
   _configureGeneralDependencies();
