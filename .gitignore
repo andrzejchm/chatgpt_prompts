@@ -59,7 +59,10 @@ app.*.map.json
 
 # project-specific
 .mason
-/macos
 /test/**/goldens/windows
 /test/**/goldens/linux
 /test/**/failures/*.png
+
+
+# .env
+.env

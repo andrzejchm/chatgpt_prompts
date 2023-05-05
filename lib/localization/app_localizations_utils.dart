@@ -5,7 +5,7 @@ AppLocalizations? _appLocalizations;
 
 /// Convenience getter for the app localizations
 AppLocalizations get appLocalizations {
-  _appLocalizations ??= AppLocalizations.of(AppNavigator.navigatorKey.currentContext!)!;
+  _appLocalizations ??= AppLocalizations.of(AppNavigator.rootContext!)!;
   return _appLocalizations!;
 }
 

@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:chatgpt_prompts/core/helpers.dart';
 import 'package:chatgpt_prompts/core/utils/durations.dart';
+import 'package:chatgpt_prompts/core/utils/platforms.dart';
 import 'package:chatgpt_prompts/navigation/transitions/fade_in_page_transition.dart';
 import 'package:chatgpt_prompts/navigation/transitions/slide_bottom_page_transition.dart';
+import 'package:flutter/material.dart';
 
 class AppNavigator {
   AppNavigator() {
@@ -10,6 +11,8 @@ class AppNavigator {
   }
 
   static final navigatorKey = GlobalKey<NavigatorState>();
+
+  static BuildContext? get rootContext => navigatorKey.currentContext;
 
   Future<R?> push<R>(
     Route<R> route, {
@@ -89,6 +92,16 @@ Route<T> materialRoute<T>(
       settings: RouteSettings(name: pageName ?? page.runtimeType.toString()),
       fullscreenDialog: fullScreenDialog,
     );
+
+Route<T> platformRoute<T>(
+  Widget page, {
+  String? pageName,
+}) {
+//check if current platform is macos
+  return Platforms.isDesktopPlatform //
+      ? fadeInRoute(page, pageName: pageName)
+      : materialRoute(page, pageName: pageName);
+}
 
 //ignore: long-parameter-list
 Route<T> slideBottomRoute<T>(

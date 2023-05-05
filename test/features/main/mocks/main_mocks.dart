@@ -1,21 +1,20 @@
 import 'package:mocktail/mocktail.dart';
 
 import 'main_mock_definitions.dart';
+
 //DO-NOT-REMOVE IMPORTS_MOCKS
 
 class MainMocks {
-
   // MVP
 
-    static late MockMainPresenter mainPresenter;
+  static late MockMainPresenter mainPresenter;
   static late MockMainPresentationModel mainPresentationModel;
   static late MockMainInitialParams mainInitialParams;
   static late MockMainNavigator mainNavigator;
-      
+
 //DO-NOT-REMOVE MVP_MOCKS_STATIC_FIELD
 
   // USE CASES
-
 
   //DO-NOT-REMOVE USE_CASE_MOCKS_STATIC_FIELD
 
@@ -26,7 +25,6 @@ class MainMocks {
 
   //DO-NOT-REMOVE STORES_MOCKS_STATIC_FIELD
 
-
   static void init() {
     _initMocks();
     _initFallbacks();
@@ -35,11 +33,11 @@ class MainMocks {
   static void _initMocks() {
     //DO-NOT-REMOVE FEATURES_MOCKS
     // MVP
-        mainPresenter = MockMainPresenter();
+    mainPresenter = MockMainPresenter();
     mainPresentationModel = MockMainPresentationModel();
     mainInitialParams = MockMainInitialParams();
     mainNavigator = MockMainNavigator();
-      
+
 //DO-NOT-REMOVE MVP_INIT_MOCKS
 
     // USE CASES
@@ -50,17 +48,16 @@ class MainMocks {
 
     // STORES
     //DO-NOT-REMOVE STORES_INIT_MOCKS
-
   }
 
   static void _initFallbacks() {
     //DO-NOT-REMOVE FEATURES_FALLBACKS
     // MVP
-        registerFallbackValue(MockMainPresenter());
+    registerFallbackValue(MockMainPresenter());
     registerFallbackValue(MockMainPresentationModel());
     registerFallbackValue(MockMainInitialParams());
     registerFallbackValue(MockMainNavigator());
-      
+
 //DO-NOT-REMOVE MVP_MOCK_FALLBACK_VALUE
 
     // USE CASES
@@ -71,6 +68,5 @@ class MainMocks {
 
     // STORES
     //DO-NOT-REMOVE STORES_MOCK_FALLBACK_VALUE
-
   }
 }

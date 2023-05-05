@@ -9,7 +9,7 @@ mixin AlertDialogRoute {
     required String message,
   }) {
     return showDialog(
-      context: AppNavigator.navigatorKey.currentContext!,
+      context: AppNavigator.rootContext!,
       builder: (context) => _AlertDialog(
         title: title,
         message: message,

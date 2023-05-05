@@ -1,13 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
+
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/main/main_initial_params.dart';
 import 'package:chatgpt_prompts/features/main/main_navigator.dart';
 import 'package:chatgpt_prompts/features/main/main_page.dart';
 import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
 import 'package:chatgpt_prompts/features/main/main_presenter.dart';
-
 import '../../../mocks/mocks.dart';
 import '../../../test_utils/golden_tests_utils.dart';
+import '../../../test_utils/test_utils.dart';
 
 Future<void> main() async {
   late MainPage page;
@@ -27,6 +28,7 @@ Future<void> main() async {
     presenter = MainPresenter(
       model,
       navigator,
+      Mocks.createChatCompletionUseCase,
     );
     page = MainPage(presenter: presenter);
   }

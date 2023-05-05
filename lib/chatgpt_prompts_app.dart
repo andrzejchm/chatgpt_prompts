@@ -9,18 +9,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class ChatgptPromptsApp extends StatefulWidget {
-  const ChatgptPromptsApp({super.key});
+  const ChatgptPromptsApp({
+    super.key,
+    this.home,
+  });
+
+  final Widget? home;
 
   @override
   State<ChatgptPromptsApp> createState() => _ChatgptPromptsAppState();
 }
 
 class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
-  late AppInitPage page;
+  late Widget home;
 
   @override
   void initState() {
-    page = getIt<AppInitPage>(param1: const AppInitInitialParams());
+    home = widget.home ?? getIt<AppInitPage>(param1: const AppInitInitialParams());
     super.initState();
   }
 
@@ -28,7 +33,7 @@ class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
   Widget build(BuildContext context) {
     return ChatgptPromptsTheme(
       child: MaterialApp(
-        home: page,
+        home: home,
         debugShowCheckedModeBanner: false,
         navigatorKey: AppNavigator.navigatorKey,
         localizationsDelegates: const [

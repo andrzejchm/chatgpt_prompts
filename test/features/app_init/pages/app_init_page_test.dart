@@ -41,6 +41,7 @@ Future<void> main() async {
     setUp: () async {
       initMvp();
       when(() => AppInitMocks.appInitUseCase.execute()).thenAnswer((_) => successFuture(unit));
+      when(() => navigator.openMain(any())).thenAnswer((_) => Future.value());
     },
     pageBuilder: () => page,
   );

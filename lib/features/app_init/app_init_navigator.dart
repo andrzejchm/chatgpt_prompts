@@ -1,8 +1,8 @@
+import 'package:chatgpt_prompts/features/main/main_navigator.dart';
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
 import 'package:chatgpt_prompts/navigation/error_dialog_route.dart';
-import 'package:chatgpt_prompts/navigation/no_routes.dart';
 
-class AppInitNavigator with NoRoutes, ErrorDialogRoute {
+class AppInitNavigator with MainRoute, ErrorDialogRoute {
   AppInitNavigator(this.appNavigator);
 
   @override

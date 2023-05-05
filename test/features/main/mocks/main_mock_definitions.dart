@@ -1,18 +1,23 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
+
 import 'package:chatgpt_prompts/features/main/main_initial_params.dart';
 import 'package:chatgpt_prompts/features/main/main_navigator.dart';
 import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
 import 'package:chatgpt_prompts/features/main/main_presenter.dart';
-      
+
 //DO-NOT-REMOVE IMPORTS_MOCK_DEFINITIONS
 
 // MVP
 
 class MockMainPresenter extends MockCubit<MainViewModel> implements MainPresenter {}
+
 class MockMainPresentationModel extends Mock implements MainPresentationModel {}
+
 class MockMainInitialParams extends Mock implements MainInitialParams {}
+
 class MockMainNavigator extends Mock implements MainNavigator {}
-      
+
 //DO-NOT-REMOVE MVP_MOCK_DEFINITION
 
 // USE CASES
@@ -23,4 +28,3 @@ class MockMainNavigator extends Mock implements MainNavigator {}
 
 // STORES
 //DO-NOT-REMOVE STORES_MOCK_DEFINITION
-

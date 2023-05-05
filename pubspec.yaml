@@ -34,6 +34,10 @@ dependencies:
 
   # logging
   logger: 1.3.0
+  dart_openai: 1.9.7
+
+  # utils
+  flutter_dotenv: 5.0.2
 
 
 dev_dependencies:
@@ -63,6 +67,7 @@ flutter:
   generate: true
 
   assets:
+    - .env
     - assets/
     - assets/images/
 

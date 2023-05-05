@@ -21,6 +21,19 @@ mixin PresenterStateMixin<M, P extends Cubit<M>, T extends HasPresenter<P>> on S
     );
   }
 
+  Widget stateListener({
+    required BlocWidgetListener<M> listener,
+    BlocBuilderCondition<M>? listenWhen,
+    required Widget child,
+  }) {
+    return BlocListener<P, M>(
+      bloc: presenter,
+      listenWhen: listenWhen,
+      listener: listener,
+      child: child,
+    );
+  }
+
   @override
   void dispose() {
     super.dispose();

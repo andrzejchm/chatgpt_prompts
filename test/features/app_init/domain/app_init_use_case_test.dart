@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:chatgpt_prompts/core/domain/use_cases/app_init_use_case.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
-
 import '../../../test_utils/test_utils.dart';
 
 void main() {

@@ -1,13 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
 import 'package:chatgpt_prompts/core/domain/model/app_init_failure.dart';
 import 'package:chatgpt_prompts/core/domain/model/user.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_initial_params.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_presentation_model.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_presenter.dart';
-import 'package:dartz/dartz.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import '../../../mocks/mocks.dart';
 import '../../../test_utils/test_utils.dart';
 import '../mocks/app_init_mock_definitions.dart';
@@ -28,6 +28,7 @@ void main() {
         Stream.fromIterable([const User.anonymous()]),
       );
       when(() => AppInitMocks.appInitUseCase.execute()).thenAnswer((_) => successFuture(unit));
+      when(() => navigator.openMain(any())).thenAnswer((_) => Future.value());
 
       // WHEN
       await presenter.onInit();

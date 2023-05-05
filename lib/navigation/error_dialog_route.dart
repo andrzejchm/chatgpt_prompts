@@ -8,7 +8,7 @@ mixin ErrorDialogRoute {
   Future<void> showError(DisplayableFailure failure, {BuildContext? context}) {
     logError(failure);
     return showDialog(
-      context: context ?? AppNavigator.navigatorKey.currentContext!,
+      context: context ?? AppNavigator.rootContext!,
       builder: (context) => ErrorDialog(failure: failure),
     );
   }

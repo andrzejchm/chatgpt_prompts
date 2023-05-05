@@ -12,7 +12,7 @@ T? doNothing<T>() {
 void Function({BuildContext? context, String? message}) notImplemented = ({String? message, BuildContext? context}) {
   logError(UnimplementedError('not implemented${message == null ? '' : ':\n$message'}'), StackTrace.current);
   showDialog(
-    context: context ?? AppNavigator.navigatorKey.currentContext!,
+    context: context ?? AppNavigator.rootContext!,
     builder: (context) => AlertDialog(
       title: const Text('Not implemented'),
       content: Text(message ?? 'This feature is not yet implemented'),
