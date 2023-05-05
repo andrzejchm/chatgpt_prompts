@@ -1,0 +1,3 @@
+class ChatInitialParams {
+  const ChatInitialParams();
+}

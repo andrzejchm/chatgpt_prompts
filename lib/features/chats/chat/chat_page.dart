@@ -2,30 +2,29 @@
 import 'dart:math';
 
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
-import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
-import 'package:chatgpt_prompts/features/main/main_presenter.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_presentation_model.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_presenter.dart';
 import 'package:chatgpt_prompts/ui/widgets/app_comment_bar.dart';
 import 'package:chatgpt_prompts/ui/widgets/chat_message_view.dart';
 import 'package:chatgpt_prompts/ui/widgets/response_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MainPage extends StatefulWidget with HasPresenter<MainPresenter> {
-  const MainPage({
+class ChatPage extends StatefulWidget with HasPresenter<ChatPresenter> {
+  const ChatPage({
     required this.presenter,
     super.key,
   });
 
   @override
-  final MainPresenter presenter;
+  final ChatPresenter presenter;
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _MainPageState extends State<MainPage> with PresenterStateMixin<MainViewModel, MainPresenter, MainPage> {
+class _ChatPageState extends State<ChatPage> with PresenterStateMixin<ChatViewModel, ChatPresenter, ChatPage> {
   late TextEditingController _textEditingController;
-
 
   @override
   void initState() {
@@ -75,6 +74,7 @@ class _MainPageState extends State<MainPage> with PresenterStateMixin<MainViewMo
                     AppCommentBar(
                       onTapSend: () => presenter.onTapSend(),
                       controller: _textEditingController,
+                      enabled: state.sendEnabled,
                     ),
                   ],
                 );

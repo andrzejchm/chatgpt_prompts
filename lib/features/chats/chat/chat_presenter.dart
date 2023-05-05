@@ -4,22 +4,22 @@ import 'package:chatgpt_prompts/core/domain/model/chat_message.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/bloc_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
-import 'package:chatgpt_prompts/features/main/main_navigator.dart';
-import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_navigator.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_presentation_model.dart';
 import 'package:dart_openai/openai.dart';
 
-class MainPresenter extends Cubit<MainViewModel> {
-  MainPresenter(
-    MainPresentationModel super.model,
+class ChatPresenter extends Cubit<ChatViewModel> {
+  ChatPresenter(
+    ChatPresentationModel super.model,
     this.navigator,
     this._createChatCompletionUseCase,
   );
 
-  final MainNavigator navigator;
+  final ChatNavigator navigator;
   final CreateChatCompletionUseCase _createChatCompletionUseCase;
 
   // ignore: unused_element
-  MainPresentationModel get _model => state as MainPresentationModel;
+  ChatPresentationModel get _model => state as ChatPresentationModel;
 
   void onTapSend() {
     final currentPrompt = _model.currentPrompt;

@@ -9,10 +9,12 @@ class AppCommentBar extends StatefulWidget {
     super.key,
     required this.onTapSend,
     required this.controller,
+    this.enabled = true,
   });
 
   final VoidCallback onTapSend;
   final TextEditingController controller;
+  final bool enabled;
 
   @override
   State<AppCommentBar> createState() => _AppCommentBarState();
@@ -38,7 +40,7 @@ class _AppCommentBarState extends State<AppCommentBar> {
           ),
           Gap(dimens.spacingM),
           IconButton(
-            onPressed: widget.onTapSend,
+            onPressed: widget.enabled ? widget.onTapSend : null,
             icon: const Icon(Icons.send),
           ),
         ],

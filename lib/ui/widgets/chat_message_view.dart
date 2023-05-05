@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_role.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_message.dart';
 import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
@@ -44,7 +42,7 @@ class ChatMessageView extends StatelessWidget {
                   Gap(dimens.spacingS),
                   Container(
                     decoration: BoxDecoration(
-                      color: role.color,
+                      color: role.color(context),
                       borderRadius: BorderRadius.only(
                         topLeft: isUser ? Radius.zero : radius,
                         topRight: isUser ? radius : Radius.zero,
@@ -75,14 +73,14 @@ class ChatMessageView extends StatelessWidget {
 
 //extension for ChatCompletionRole to get color
 extension ChatCompletionRoleX on ChatCompletionRole {
-  Color get color {
+  Color color(BuildContext context) {
     switch (this) {
       case ChatCompletionRole.assistant:
-        return colors.tertiaryContainer;
+        return colors(context).tertiaryContainer;
       case ChatCompletionRole.user:
-        return colors.secondaryContainer;
+        return colors(context).secondaryContainer;
       case ChatCompletionRole.system:
-        return colors.surfaceVariant;
+        return colors(context).surfaceVariant;
     }
   }
 }

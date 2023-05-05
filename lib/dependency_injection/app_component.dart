@@ -10,6 +10,7 @@ import 'package:chatgpt_prompts/features/auth/dependency_injection/feature_compo
 import 'package:chatgpt_prompts/features/main/dependency_injection/feature_component.dart' as main;
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
 import 'package:get_it/get_it.dart';
+import 'package:chatgpt_prompts/features/chats/dependency_injection/feature_component.dart' as chats;
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 final getIt = GetIt.instance;
@@ -19,6 +20,7 @@ void configureDependencies() {
   app_init.configureDependencies();
   auth.configureDependencies();
   main.configureDependencies();
+  chats.configureDependencies();
 //DO-NOT-REMOVE FEATURE_COMPONENT_INIT
 
   _configureGeneralDependencies();

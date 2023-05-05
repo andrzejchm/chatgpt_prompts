@@ -1,5 +1,9 @@
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
-
+import 'package:chatgpt_prompts/features/chats/chat/chat_navigator.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_presentation_model.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_presenter.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_page.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 /// registers all the dependencies in dependency graph in get_it package
@@ -47,6 +51,23 @@ void _configureUseCases() {
 void _configureMvp() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE MVP_GET_IT_CONFIG
+        ..registerFactory<ChatNavigator>(
+          () => ChatNavigator(getIt()),
+        )
+        ..registerFactoryParam<ChatPresentationModel, ChatInitialParams, dynamic>(
+          (params, _) => ChatPresentationModel.initial(params),
+        )
+        ..registerFactoryParam<ChatPresenter, ChatInitialParams, dynamic>(
+          (params, _) => ChatPresenter(
+            getIt(param1: params),
+            getIt(),
+            getIt(),
+          ),
+        )
+        ..registerFactoryParam<ChatPage, ChatInitialParams, dynamic>(
+          (params, _) => ChatPage(presenter: getIt(param1: params)),
+        )
+
+//DO-NOT-REMOVE MVP_GET_IT_CONFIG
       ;
 }

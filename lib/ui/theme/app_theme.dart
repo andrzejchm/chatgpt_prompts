@@ -1,4 +1,3 @@
-import 'package:chatgpt_prompts/navigation/app_navigator.dart';
 import 'package:chatgpt_prompts/ui/theme/app_theme_data.dart';
 import 'package:chatgpt_prompts/ui/theme/chatgpt_prompts_dimens.dart';
 import 'package:chatgpt_prompts/ui/theme/chatgpt_prompts_text_styles.dart';
@@ -10,8 +9,8 @@ ChatgptPromptsDimens get dimens => appTheme.dimens;
 
 ChatgptPromptsTextStyles get textStyles => appTheme.textStyles;
 
-ColorScheme get colors {
-  final brightness = Theme.of(AppNavigator.rootContext!).colorScheme.brightness;
+ColorScheme colors(BuildContext context) {
+  final brightness = Theme.of(context).colorScheme.brightness;
   switch (brightness) {
     case Brightness.dark:
       return appTheme.colorsDark;

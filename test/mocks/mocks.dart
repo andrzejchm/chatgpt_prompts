@@ -7,7 +7,7 @@ import 'package:chatgpt_prompts/core/utils/periodic_task_executor.dart';
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
 import '../features/app_init/mocks/app_init_mocks.dart';
 import '../features/auth/mocks/auth_mocks.dart';
-import '../features/main/mocks/main_mocks.dart';
+import '../features/chats/mocks/chats_mocks.dart';
 import 'mock_definitions.dart';
 
 //DO-NOT-REMOVE IMPORTS_MOCKS
@@ -42,7 +42,7 @@ class Mocks {
   static void init() {
     AppInitMocks.init();
     AuthMocks.init();
-    MainMocks.init();
+    ChatsMocks.init();
 //DO-NOT-REMOVE FEATURE_MOCKS_INIT
 
     _initMocks();

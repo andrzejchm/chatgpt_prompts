@@ -1,3 +1,0 @@
-class MainInitialParams {
-  const MainInitialParams();
-}

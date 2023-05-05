@@ -1,17 +1,16 @@
 import 'package:mocktail/mocktail.dart';
 
-import 'main_mock_definitions.dart';
+import 'chats_mock_definitions.dart';
 
 //DO-NOT-REMOVE IMPORTS_MOCKS
 
-class MainMocks {
+class ChatsMocks {
   // MVP
 
-  static late MockMainPresenter mainPresenter;
-  static late MockMainPresentationModel mainPresentationModel;
-  static late MockMainInitialParams mainInitialParams;
-  static late MockMainNavigator mainNavigator;
-
+  static late MockChatNavigator chatNavigator;
+  static late MockChatPresentationModel chatPresentationModel;
+  static late MockChatPresenter chatPresenter;
+  static late MockChatInitialParams chatInitialParams;
 //DO-NOT-REMOVE MVP_MOCKS_STATIC_FIELD
 
   // USE CASES
@@ -33,11 +32,10 @@ class MainMocks {
   static void _initMocks() {
     //DO-NOT-REMOVE FEATURES_MOCKS
     // MVP
-    mainPresenter = MockMainPresenter();
-    mainPresentationModel = MockMainPresentationModel();
-    mainInitialParams = MockMainInitialParams();
-    mainNavigator = MockMainNavigator();
-
+    chatNavigator = MockChatNavigator();
+    chatPresentationModel = MockChatPresentationModel();
+    chatPresenter = MockChatPresenter();
+    chatInitialParams = MockChatInitialParams();
 //DO-NOT-REMOVE MVP_INIT_MOCKS
 
     // USE CASES
@@ -53,11 +51,10 @@ class MainMocks {
   static void _initFallbacks() {
     //DO-NOT-REMOVE FEATURES_FALLBACKS
     // MVP
-    registerFallbackValue(MockMainPresenter());
-    registerFallbackValue(MockMainPresentationModel());
-    registerFallbackValue(MockMainInitialParams());
-    registerFallbackValue(MockMainNavigator());
-
+    registerFallbackValue(MockChatNavigator());
+    registerFallbackValue(MockChatPresentationModel());
+    registerFallbackValue(MockChatPresenter());
+    registerFallbackValue(MockChatInitialParams());
 //DO-NOT-REMOVE MVP_MOCK_FALLBACK_VALUE
 
     // USE CASES
