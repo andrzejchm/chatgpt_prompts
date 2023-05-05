@@ -18,7 +18,7 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppTheme.dimens.spacingM),
+          borderRadius: BorderRadius.circular(dimens.spacingM),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 // ignore: unused_import
-import 'package:bloc/bloc.dart';
+import 'dart:math';
+
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
 import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
 import 'package:chatgpt_prompts/features/main/main_presenter.dart';
@@ -25,6 +26,7 @@ class MainPage extends StatefulWidget with HasPresenter<MainPresenter> {
 class _MainPageState extends State<MainPage> with PresenterStateMixin<MainViewModel, MainPresenter, MainPage> {
   late TextEditingController _textEditingController;
 
+
   @override
   void initState() {
     super.initState();
@@ -47,26 +49,36 @@ class _MainPageState extends State<MainPage> with PresenterStateMixin<MainViewMo
             LogicalKeySet(LogicalKeyboardKey.enter): () => presenter.onTapSend(),
           },
           child: Scaffold(
+            // backgroundColor: AppTheme.colors.,
             body: stateObserver(
-              builder: (context, state) => Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      reverse: true,
-                      itemCount: state.messages.length,
-                      itemBuilder: (context, index) =>
-                          ChatMessageView(message: state.messages.reversed.toList()[index]),
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    Expanded(
+                      child: ClipRect(
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: ListView.builder(
+                            reverse: true,
+                            clipBehavior: Clip.none,
+                            shrinkWrap: true,
+                            itemCount: state.messages.length,
+                            itemBuilder: (context, index) =>
+                                ChatMessageView(message: state.messages.reversed.toList()[index]),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  ResponseLoadingIndicator(
-                    isLoading: state.isLoading,
-                  ),
-                  AppCommentBar(
-                    onTapSend: () => presenter.onTapSend(),
-                    controller: _textEditingController,
-                  ),
-                ],
-              ),
+                    ResponseLoadingIndicator(
+                      isLoading: state.isLoading,
+                    ),
+                    AppCommentBar(
+                      onTapSend: () => presenter.onTapSend(),
+                      controller: _textEditingController,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),

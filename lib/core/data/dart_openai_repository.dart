@@ -21,7 +21,7 @@ class DartOpenaiRepository implements OpenaiRepository {
     required List<ChatCompletionMessageInput> inputs,
   }) async {
     try {
-      OpenAI.apiKey = '';
+      OpenAI.apiKey = (await configProvider.getConfig()).openApiKey;
       final response = await OpenAI.instance.chat.create(
         model: openAiModel,
         messages: inputs.map((e) => e.toMessageModel()).toList(),

@@ -26,7 +26,6 @@ class _AppCommentBarState extends State<AppCommentBar> {
 
   @override
   Widget build(BuildContext context) {
-    final dimens = AppTheme.dimens;
     return Padding(
       padding: EdgeInsets.all(dimens.spacingM),
       child: Row(

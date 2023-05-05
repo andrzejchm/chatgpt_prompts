@@ -1,3 +1,0 @@
-class ChatgptPromptsColors {
-  const ChatgptPromptsColors();
-}

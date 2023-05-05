@@ -2,7 +2,7 @@ import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_initial_params.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_page.dart';
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
-import 'package:chatgpt_prompts/ui/theme/chatgpt_prompts_theme.dart';
+import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'package:chatgpt_prompts/utils/locale_resolution.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,23 +31,29 @@ class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChatgptPromptsTheme(
-      child: MaterialApp(
-        home: home,
-        debugShowCheckedModeBanner: false,
-        navigatorKey: AppNavigator.navigatorKey,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        localeListResolutionCallback: localeResolution,
-        supportedLocales: AppLocalizations.supportedLocales,
-        builder: (context, child) => MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: child!,
-        ),
+    return MaterialApp(
+      home: home,
+      theme: ThemeData(
+        colorScheme: appTheme.colorsLight,
+        scaffoldBackgroundColor: appTheme.colorsLight.background,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: appTheme.colorsDark,
+        scaffoldBackgroundColor: appTheme.colorsDark.background,
+      ),
+      debugShowCheckedModeBanner: false,
+      navigatorKey: AppNavigator.navigatorKey,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      localeListResolutionCallback: localeResolution,
+      supportedLocales: AppLocalizations.supportedLocales,
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: child!,
       ),
     );
   }

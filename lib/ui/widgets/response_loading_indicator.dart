@@ -19,7 +19,7 @@ class ResponseLoadingIndicator extends StatelessWidget {
       duration: const ShortDuration(),
       curve: Curves.easeInOut,
       child: Padding(
-        padding: EdgeInsets.only(top: AppTheme.dimens.spacingS),
+        padding: EdgeInsets.only(top: dimens.spacingS),
         child: SizedBox(
           height: isLoading ? loadingSize : 0,
           width: loadingSize,

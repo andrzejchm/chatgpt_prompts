@@ -10,8 +10,6 @@ import 'package:meta/meta.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
 import 'package:chatgpt_prompts/core/utils/durations.dart';
-import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
-import 'package:chatgpt_prompts/ui/theme/chatgpt_prompts_theme.dart';
 import 'golden_test_device_scenario.dart';
 import 'test_utils.dart';
 
@@ -31,7 +29,6 @@ Future<void> screenshotTest(
   List<Device>? devices,
   Duration timeout = const Duration(seconds: 5),
 }) async {
-  themeTestOverride = AppThemeData.defaults();
   return preparePageTests(
     () => goldenTest(
       description,
@@ -41,13 +38,11 @@ Future<void> screenshotTest(
         return GoldenTestGroup(
           children: (devices ?? testDevices) //
               .map(
-                (it) => ChatgptPromptsTheme(
-                  child: DefaultAssetBundle(
-                    bundle: TestAssetBundle(),
-                    child: GoldenTestDeviceScenario(
-                      device: it,
-                      builder: pageBuilder,
-                    ),
+                (it) => DefaultAssetBundle(
+                  bundle: TestAssetBundle(),
+                  child: GoldenTestDeviceScenario(
+                    device: it,
+                    builder: pageBuilder,
                   ),
                 ),
               )
@@ -85,11 +80,9 @@ Future<void> widgetScreenshotTest(
     builder: () {
       setUp?.call();
 
-      return ChatgptPromptsTheme(
-        child: DefaultAssetBundle(
-          bundle: TestAssetBundle(),
-          child: Builder(builder: widgetBuilder),
-        ),
+      return DefaultAssetBundle(
+        bundle: TestAssetBundle(),
+        child: Builder(builder: widgetBuilder),
       );
     },
     tags: tags,
