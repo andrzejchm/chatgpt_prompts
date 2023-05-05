@@ -39,6 +39,8 @@ dependencies:
   # utils
   flutter_dotenv: 5.0.2
 
+  # desktop-related
+  window_manager: 0.3.2
 
 dev_dependencies:
   flutter_test:

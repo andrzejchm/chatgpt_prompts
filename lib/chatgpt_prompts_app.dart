@@ -1,3 +1,4 @@
+import 'package:chatgpt_prompts/core/utils/platforms.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_initial_params.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_page.dart';
@@ -51,10 +52,15 @@ class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
       ],
       localeListResolutionCallback: localeResolution,
       supportedLocales: AppLocalizations.supportedLocales,
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-        child: child!,
-      ),
+      builder: (context, child) => Platforms.isDesktopPlatform
+          ? MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                // accounts for close/maximize/minimize buttons
+                padding: const EdgeInsets.only(top: 16),
+              ),
+              child: child!,
+            )
+          : child!,
     );
   }
 }
