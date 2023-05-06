@@ -1,3 +1,4 @@
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
 
 /// Model used by presenter, contains fields that are relevant to presenters and implements ViewModel to expose data to view (page)
@@ -6,15 +7,27 @@ class PromptDetailsPresentationModel implements PromptDetailsViewModel {
   PromptDetailsPresentationModel.initial(
     // ignore: avoid_unused_constructor_parameters
     PromptDetailsInitialParams initialParams,
-  );
+  ) : prompt = initialParams.prompt;
 
   /// Used for the copyWith method
-  PromptDetailsPresentationModel._();
+  PromptDetailsPresentationModel._(
+    this.prompt,
+  );
 
-  PromptDetailsPresentationModel copyWith() {
-    return PromptDetailsPresentationModel._();
+  @override
+  final Prompt prompt;
+
+  //copyWith
+  PromptDetailsPresentationModel copyWith({
+    Prompt? prompt,
+  }) {
+    return PromptDetailsPresentationModel._(
+      prompt ?? this.prompt,
+    );
   }
 }
 
 /// Interface to expose fields used by the view (page).
-abstract class PromptDetailsViewModel {}
+abstract class PromptDetailsViewModel {
+  Prompt get prompt;
+}

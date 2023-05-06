@@ -31,14 +31,15 @@ class _PromptsListPageState extends State<PromptsListPage>
   @override
   Widget build(BuildContext context) => stateObserver(
         builder: (context, state) => Scaffold(
-          backgroundColor: colors(context).surfaceVariant,
+          backgroundColor: colors(context).surface,
           body: ListView.builder(
             itemCount: state.prompts.length,
             itemBuilder: (context, index) {
               final prompt = state.prompts[index];
               return PromptsListItem(
+                selected: state.selectedPrompt == prompt,
                 prompt: prompt,
-                onTap: () => presenter.onTapPrompt(prompt),
+                onTap: () => presenter.onTapPrompt(index),
               );
             },
           ),

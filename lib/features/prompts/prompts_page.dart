@@ -33,8 +33,12 @@ class _PromptsPageState extends State<PromptsPage>
               );
             },
           ),
-          details: (_) => PromptDetailsPage(
-            presenter: state.promptDetailsPresenter,
+          details: (_) => stateObserver(
+            builder: (context, state) {
+              return PromptDetailsPage(
+                presenter: state.promptDetailsPresenter,
+              );
+            },
           ),
         ),
       );

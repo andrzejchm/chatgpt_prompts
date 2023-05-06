@@ -1,9 +1,9 @@
 // ignore: unused_import
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
+import 'package:flutter/material.dart';
 
 class PromptDetailsPage extends StatefulWidget with HasPresenter<PromptDetailsPresenter> {
   const PromptDetailsPage({
@@ -21,9 +21,13 @@ class PromptDetailsPage extends StatefulWidget with HasPresenter<PromptDetailsPr
 class _PromptDetailsPageState extends State<PromptDetailsPage>
     with PresenterStateMixin<PromptDetailsViewModel, PromptDetailsPresenter, PromptDetailsPage> {
   @override
-  Widget build(BuildContext context) => const Scaffold(
-        body: Center(
-          child: Text('PromptDetailsPage\n(NOT IMPLEMENTED YET)'),
-        ),
+  Widget build(BuildContext context) => stateObserver(
+        builder: (context, state) {
+          return Scaffold(
+            body: Center(
+              child: Text(state.prompt.name),
+            ),
+          );
+        },
       );
 }

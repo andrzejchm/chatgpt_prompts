@@ -10,26 +10,37 @@ class PromptsListPresentationModel implements PromptsListViewModel {
     // ignore: avoid_unused_constructor_parameters
     PromptsListInitialParams initialParams,
   )   : prompts = const [],
+        selectedPromptIndex = -1,
         promptsResult = const FutureResult.empty();
 
   /// Used for the copyWith method
   PromptsListPresentationModel._(
     this.prompts,
     this.promptsResult,
+    this.selectedPromptIndex,
   );
 
   @override
   final List<Prompt> prompts;
+
+  final int selectedPromptIndex;
   final FutureResult<GetPromptsListResult> promptsResult;
+
+  @override
+  Prompt get selectedPrompt => selectedPromptIndex == -1 //
+      ? const Prompt.empty()
+      : prompts[selectedPromptIndex];
 
   //copyWith
   PromptsListPresentationModel copyWith({
     List<Prompt>? prompts,
     FutureResult<GetPromptsListResult>? promptsResult,
+    int? selectedPromptIndex,
   }) {
     return PromptsListPresentationModel._(
       prompts ?? this.prompts,
       promptsResult ?? this.promptsResult,
+      selectedPromptIndex ?? this.selectedPromptIndex,
     );
   }
 }
@@ -37,4 +48,6 @@ class PromptsListPresentationModel implements PromptsListViewModel {
 /// Interface to expose fields used by the view (page).
 abstract class PromptsListViewModel {
   List<Prompt> get prompts;
+
+  Prompt get selectedPrompt;
 }

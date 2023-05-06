@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:chatgpt_prompts/core/utils/bloc_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
-import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presentation_model.dart';
-import 'package:flutter/cupertino.dart';
 
 class PromptsListPresenter extends Cubit<PromptsListViewModel> {
   PromptsListPresenter(
@@ -32,12 +30,16 @@ class PromptsListPresenter extends Cubit<PromptsListViewModel> {
         )
         .asyncFold(
           (failure) => navigator.showError(failure.displayableFailure()),
-          (list) => tryEmit(_model.copyWith(prompts: list)),
+          (list) => tryEmit(
+            _model.copyWith(
+              prompts: list,
+              selectedPromptIndex: list.isEmpty ? null : 0,
+            ),
+          ),
         );
   }
 
-  void onTapPrompt(Prompt prompt) {
-    //todo
-    debugPrint('onTapPrompt: $prompt');
+  void onTapPrompt(int index) {
+    tryEmit(_model.copyWith(selectedPromptIndex: index));
   }
 }

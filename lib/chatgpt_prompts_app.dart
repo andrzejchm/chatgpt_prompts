@@ -58,7 +58,7 @@ class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
           ? MediaQuery(
               data: MediaQuery.of(context).copyWith(
                 // accounts for close/maximize/minimize buttons
-                padding: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 24),
               ),
               child: child!,
             )
