@@ -21,7 +21,10 @@ class PromptsMocks {
 
   // USE CASES
 
-  //DO-NOT-REMOVE USE_CASE_MOCKS_STATIC_FIELD
+  static late MockGetPromptsListFailure getPromptsListFailure;
+  static late MockGetPromptsListUseCase getPromptsListUseCase;
+
+//DO-NOT-REMOVE USE_CASE_MOCKS_STATIC_FIELD
 
   // REPOSITORIES
   static late MockPromptsRepository promptsRepository;
@@ -52,7 +55,10 @@ class PromptsMocks {
 //DO-NOT-REMOVE MVP_INIT_MOCKS
 
     // USE CASES
-    //DO-NOT-REMOVE USE_CASE_INIT_MOCKS
+    getPromptsListFailure = MockGetPromptsListFailure();
+    getPromptsListUseCase = MockGetPromptsListUseCase();
+
+//DO-NOT-REMOVE USE_CASE_INIT_MOCKS
 
     // REPOSITORIES
     promptsRepository = MockPromptsRepository();
@@ -78,7 +84,10 @@ class PromptsMocks {
 //DO-NOT-REMOVE MVP_MOCK_FALLBACK_VALUE
 
     // USE CASES
-    //DO-NOT-REMOVE USE_CASE_MOCK_FALLBACK_VALUE
+    registerFallbackValue(MockGetPromptsListFailure());
+    registerFallbackValue(MockGetPromptsListUseCase());
+
+//DO-NOT-REMOVE USE_CASE_MOCK_FALLBACK_VALUE
 
     // REPOSITORIES
     registerFallbackValue(MockPromptsRepository());

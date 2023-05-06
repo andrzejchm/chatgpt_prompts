@@ -12,6 +12,7 @@ import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 
 import 'package:chatgpt_prompts/features/prompts/data/in_memory_prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 /// registers all the dependencies in dependency graph in get_it package
@@ -55,7 +56,11 @@ void _configureStores() {
 void _configureUseCases() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
+        ..registerFactory<GetPromptsListUseCase>(
+          () => const GetPromptsListUseCase(),
+        )
+
+//DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
       ;
 }
 
