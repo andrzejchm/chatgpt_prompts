@@ -12,6 +12,11 @@ class PromptsMocks {
   static late MockPromptsInitialParams promptsInitialParams;
   static late MockPromptsNavigator promptsNavigator;
 
+  static late MockPromptsListPresenter promptsListPresenter;
+  static late MockPromptsListPresentationModel promptsListPresentationModel;
+  static late MockPromptsListInitialParams promptsListInitialParams;
+  static late MockPromptsListNavigator promptsListNavigator;
+
 //DO-NOT-REMOVE MVP_MOCKS_STATIC_FIELD
 
   // USE CASES
@@ -38,6 +43,11 @@ class PromptsMocks {
     promptsInitialParams = MockPromptsInitialParams();
     promptsNavigator = MockPromptsNavigator();
 
+    promptsListPresenter = MockPromptsListPresenter();
+    promptsListPresentationModel = MockPromptsListPresentationModel();
+    promptsListInitialParams = MockPromptsListInitialParams();
+    promptsListNavigator = MockPromptsListNavigator();
+
 //DO-NOT-REMOVE MVP_INIT_MOCKS
 
     // USE CASES
@@ -57,6 +67,11 @@ class PromptsMocks {
     registerFallbackValue(MockPromptsPresentationModel());
     registerFallbackValue(MockPromptsInitialParams());
     registerFallbackValue(MockPromptsNavigator());
+
+    registerFallbackValue(MockPromptsListPresenter());
+    registerFallbackValue(MockPromptsListPresentationModel());
+    registerFallbackValue(MockPromptsListInitialParams());
+    registerFallbackValue(MockPromptsListNavigator());
 
 //DO-NOT-REMOVE MVP_MOCK_FALLBACK_VALUE
 

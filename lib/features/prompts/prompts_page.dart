@@ -25,7 +25,13 @@ class _PromptsPageState extends State<PromptsPage>
   @override
   Widget build(BuildContext context) => Scaffold(
         body: ResizableRow(
-          panel: (_) => const PromptsSidePanel(),
+          panel: (_) => stateObserver(
+            builder: (context, state) {
+              return PromptsSidePanel(
+                presenter: state.promptsListPresenter,
+              );
+            },
+          ),
           details: (_) => const Center(child: Text('PromptsPage\n(NOT IMPLEMENTED YET)')),
         ),
       );

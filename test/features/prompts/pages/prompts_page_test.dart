@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
@@ -23,6 +25,7 @@ Future<void> main() async {
     initParams = const PromptsInitialParams();
     model = PromptsPresentationModel.initial(
       initParams,
+      getIt<PromptsListPresenter>(param1: const PromptsListInitialParams()),
     );
     navigator = PromptsNavigator(Mocks.appNavigator);
     presenter = PromptsPresenter(

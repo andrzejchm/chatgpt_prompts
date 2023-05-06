@@ -1,0 +1,3 @@
+class PromptsListInitialParams {
+  const PromptsListInitialParams();
+}

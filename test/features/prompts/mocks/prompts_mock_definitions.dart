@@ -2,6 +2,10 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_navigator.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presentation_model.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
@@ -17,6 +21,14 @@ class MockPromptsPresentationModel extends Mock implements PromptsPresentationMo
 class MockPromptsInitialParams extends Mock implements PromptsInitialParams {}
 
 class MockPromptsNavigator extends Mock implements PromptsNavigator {}
+
+class MockPromptsListPresenter extends MockCubit<PromptsListViewModel> implements PromptsListPresenter {}
+
+class MockPromptsListPresentationModel extends Mock implements PromptsListPresentationModel {}
+
+class MockPromptsListInitialParams extends Mock implements PromptsListInitialParams {}
+
+class MockPromptsListNavigator extends Mock implements PromptsListNavigator {}
 
 //DO-NOT-REMOVE MVP_MOCK_DEFINITION
 

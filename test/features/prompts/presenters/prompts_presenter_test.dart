@@ -21,7 +21,10 @@ void main() {
   );
 
   setUp(() {
-    model = PromptsPresentationModel.initial(const PromptsInitialParams());
+    model = PromptsPresentationModel.initial(
+      const PromptsInitialParams(),
+      MockPromptsListPresenter(),
+    );
     navigator = MockPromptsNavigator();
     presenter = PromptsPresenter(
       model,
