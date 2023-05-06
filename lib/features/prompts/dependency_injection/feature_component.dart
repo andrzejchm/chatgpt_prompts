@@ -10,6 +10,8 @@ import 'package:chatgpt_prompts/features/prompts/prompts_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 
+import 'package:chatgpt_prompts/features/prompts/data/in_memory_prompts_repository.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 /// registers all the dependencies in dependency graph in get_it package
@@ -33,7 +35,11 @@ void _configureGeneralDependencies() {
 void _configureRepositories() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
+        ..registerFactory<PromptsRepository>(
+          () => const InMemoryPromptsRepository(),
+        )
+
+//DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
       ;
 }
 

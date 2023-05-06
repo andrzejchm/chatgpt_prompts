@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_navigator.dart';
@@ -36,6 +37,7 @@ class MockPromptsListNavigator extends Mock implements PromptsListNavigator {}
 //DO-NOT-REMOVE USE_CASE_MOCK_DEFINITION
 
 // REPOSITORIES
+class MockPromptsRepository extends Mock implements PromptsRepository {}
 //DO-NOT-REMOVE REPOSITORIES_MOCK_DEFINITION
 
 // STORES
