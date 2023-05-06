@@ -17,6 +17,16 @@ class PromptsMocks {
   static late MockPromptsListInitialParams promptsListInitialParams;
   static late MockPromptsListNavigator promptsListNavigator;
 
+  static late MockEditPromptPresenter editPromptPresenter;
+  static late MockEditPromptPresentationModel editPromptPresentationModel;
+  static late MockEditPromptInitialParams editPromptInitialParams;
+  static late MockEditPromptNavigator editPromptNavigator;
+
+  static late MockPromptDetailsPresenter promptDetailsPresenter;
+  static late MockPromptDetailsPresentationModel promptDetailsPresentationModel;
+  static late MockPromptDetailsInitialParams promptDetailsInitialParams;
+  static late MockPromptDetailsNavigator promptDetailsNavigator;
+
 //DO-NOT-REMOVE MVP_MOCKS_STATIC_FIELD
 
   // USE CASES
@@ -52,6 +62,16 @@ class PromptsMocks {
     promptsListInitialParams = MockPromptsListInitialParams();
     promptsListNavigator = MockPromptsListNavigator();
 
+    editPromptPresenter = MockEditPromptPresenter();
+    editPromptPresentationModel = MockEditPromptPresentationModel();
+    editPromptInitialParams = MockEditPromptInitialParams();
+    editPromptNavigator = MockEditPromptNavigator();
+
+    promptDetailsPresenter = MockPromptDetailsPresenter();
+    promptDetailsPresentationModel = MockPromptDetailsPresentationModel();
+    promptDetailsInitialParams = MockPromptDetailsInitialParams();
+    promptDetailsNavigator = MockPromptDetailsNavigator();
+
 //DO-NOT-REMOVE MVP_INIT_MOCKS
 
     // USE CASES
@@ -80,6 +100,16 @@ class PromptsMocks {
     registerFallbackValue(MockPromptsListPresentationModel());
     registerFallbackValue(MockPromptsListInitialParams());
     registerFallbackValue(MockPromptsListNavigator());
+
+    registerFallbackValue(MockEditPromptPresenter());
+    registerFallbackValue(MockEditPromptPresentationModel());
+    registerFallbackValue(MockEditPromptInitialParams());
+    registerFallbackValue(MockEditPromptNavigator());
+
+    registerFallbackValue(MockPromptDetailsPresenter());
+    registerFallbackValue(MockPromptDetailsPresentationModel());
+    registerFallbackValue(MockPromptDetailsInitialParams());
+    registerFallbackValue(MockPromptDetailsNavigator());
 
 //DO-NOT-REMOVE MVP_MOCK_FALLBACK_VALUE
 

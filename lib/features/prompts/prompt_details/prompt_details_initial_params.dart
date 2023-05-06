@@ -1,0 +1,3 @@
+class PromptDetailsInitialParams {
+  const PromptDetailsInitialParams();
+}

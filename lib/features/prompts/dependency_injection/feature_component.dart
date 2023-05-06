@@ -13,6 +13,18 @@ import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/data/in_memory_prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_navigator.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_page.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_presentation_model.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_presenter.dart';
+
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_navigator.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_page.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
+
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 /// registers all the dependencies in dependency graph in get_it package
@@ -94,6 +106,30 @@ void _configureMvp() {
         )
         ..registerFactoryParam<PromptsListPage, PromptsListInitialParams, dynamic>(
           (params, _) => PromptsListPage(presenter: getIt(param1: params)),
+        )
+        ..registerFactory<EditPromptNavigator>(
+          () => EditPromptNavigator(getIt()),
+        )
+        ..registerFactoryParam<EditPromptPresentationModel, EditPromptInitialParams, dynamic>(
+          (params, _) => EditPromptPresentationModel.initial(params),
+        )
+        ..registerFactoryParam<EditPromptPresenter, EditPromptInitialParams, dynamic>(
+          (params, _) => EditPromptPresenter(getIt(param1: params), getIt()),
+        )
+        ..registerFactoryParam<EditPromptPage, EditPromptInitialParams, dynamic>(
+          (params, _) => EditPromptPage(presenter: getIt(param1: params)),
+        )
+        ..registerFactory<PromptDetailsNavigator>(
+          () => PromptDetailsNavigator(getIt()),
+        )
+        ..registerFactoryParam<PromptDetailsPresentationModel, PromptDetailsInitialParams, dynamic>(
+          (params, _) => PromptDetailsPresentationModel.initial(params),
+        )
+        ..registerFactoryParam<PromptDetailsPresenter, PromptDetailsInitialParams, dynamic>(
+          (params, _) => PromptDetailsPresenter(getIt(param1: params), getIt()),
+        )
+        ..registerFactoryParam<PromptDetailsPage, PromptDetailsInitialParams, dynamic>(
+          (params, _) => PromptDetailsPage(presenter: getIt(param1: params)),
         )
 
 //DO-NOT-REMOVE MVP_GET_IT_CONFIG

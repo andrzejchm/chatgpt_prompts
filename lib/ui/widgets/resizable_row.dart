@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 typedef SizedWidget = Widget Function(Size);
@@ -78,7 +79,7 @@ class _ResizableRowState extends State<ResizableRow> {
               child: MouseRegion(
                 cursor: SystemMouseCursors.resizeColumn,
                 child: Container(
-                  color: Colors.white12,
+                  color: colors(context).onBackground.withOpacity(0.1),
                   width: resizerWidth,
                   height: double.infinity,
                 ),
