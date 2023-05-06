@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 //ignore:prefer-match-file-name
 enum FutureStatus {
@@ -6,6 +7,15 @@ enum FutureStatus {
   pending,
   fulfilled,
   rejected,
+}
+
+extension BlocExtensions<T> on BlocBase<T> {
+  void tryEmit(T state) {
+    if (!isClosed) {
+      // ignore: ban-name, invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
+      emit(state);
+    }
+  }
 }
 
 class FutureResult<T> extends Equatable {

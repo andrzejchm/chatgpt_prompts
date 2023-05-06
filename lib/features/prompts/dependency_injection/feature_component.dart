@@ -1,4 +1,17 @@
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
+import 'package:chatgpt_prompts/features/prompts/data/in_memory_prompts_repository.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_navigator.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_page.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_presentation_model.dart';
+import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_presenter.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_navigator.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_page.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_navigator.dart';
@@ -9,21 +22,6 @@ import 'package:chatgpt_prompts/features/prompts/prompts_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
-
-import 'package:chatgpt_prompts/features/prompts/data/in_memory_prompts_repository.dart';
-import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
-import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
-import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_initial_params.dart';
-import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_navigator.dart';
-import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_page.dart';
-import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_presentation_model.dart';
-import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_presenter.dart';
-
-import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
-import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_navigator.dart';
-import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_page.dart';
-import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
-import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
 
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
@@ -69,7 +67,9 @@ void _configureUseCases() {
   // ignore: unnecessary_statements
   getIt
         ..registerFactory<GetPromptsListUseCase>(
-          () => const GetPromptsListUseCase(),
+          () => GetPromptsListUseCase(
+            getIt(),
+          ),
         )
 
 //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
@@ -87,6 +87,7 @@ void _configureMvp() {
           (params, _) => PromptsPresentationModel.initial(
             params,
             getIt<PromptsListPresenter>(param1: const PromptsListInitialParams()),
+            getIt<PromptDetailsPresenter>(param1: const PromptDetailsInitialParams()),
           ),
         )
         ..registerFactoryParam<PromptsPresenter, PromptsInitialParams, dynamic>(
@@ -102,7 +103,11 @@ void _configureMvp() {
           (params, _) => PromptsListPresentationModel.initial(params),
         )
         ..registerFactoryParam<PromptsListPresenter, PromptsListInitialParams, dynamic>(
-          (params, _) => PromptsListPresenter(getIt(param1: params), getIt()),
+          (params, _) => PromptsListPresenter(
+            getIt(param1: params),
+            getIt(),
+            getIt(),
+          ),
         )
         ..registerFactoryParam<PromptsListPage, PromptsListInitialParams, dynamic>(
           (params, _) => PromptsListPage(presenter: getIt(param1: params)),

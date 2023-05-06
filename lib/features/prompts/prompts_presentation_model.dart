@@ -1,3 +1,4 @@
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presenter.dart';
 
@@ -8,19 +9,28 @@ class PromptsPresentationModel implements PromptsViewModel {
     // ignore: avoid_unused_constructor_parameters
     PromptsInitialParams initialParams,
     this.promptsListPresenter,
+    this.promptDetailsPresenter,
   );
 
   /// Used for the copyWith method
   PromptsPresentationModel._(
     this.promptsListPresenter,
+    this.promptDetailsPresenter,
   );
 
   @override
   final PromptsListPresenter promptsListPresenter;
+  @override
+  final PromptDetailsPresenter promptDetailsPresenter;
 
-  PromptsPresentationModel copyWith() {
+  //copyWith
+  PromptsPresentationModel copyWith({
+    PromptsListPresenter? promptsListPresenter,
+    PromptDetailsPresenter? promptDetailsPresenter,
+  }) {
     return PromptsPresentationModel._(
-      promptsListPresenter,
+      promptsListPresenter ?? this.promptsListPresenter,
+      promptDetailsPresenter ?? this.promptDetailsPresenter,
     );
   }
 }
@@ -28,4 +38,6 @@ class PromptsPresentationModel implements PromptsViewModel {
 /// Interface to expose fields used by the view (page).
 abstract class PromptsViewModel {
   PromptsListPresenter get promptsListPresenter;
+
+  PromptDetailsPresenter get promptDetailsPresenter;
 }

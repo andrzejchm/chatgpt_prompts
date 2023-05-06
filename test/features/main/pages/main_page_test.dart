@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
@@ -8,6 +9,7 @@ import 'package:chatgpt_prompts/features/main/main_navigator.dart';
 import 'package:chatgpt_prompts/features/main/main_page.dart';
 import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
 import 'package:chatgpt_prompts/features/main/main_presenter.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 import 'package:chatgpt_prompts/features/settings/settings_initial_params.dart';
@@ -15,6 +17,7 @@ import 'package:chatgpt_prompts/features/settings/settings_presenter.dart';
 import '../../../mocks/mocks.dart';
 import '../../../test_utils/golden_tests_utils.dart';
 import '../../../test_utils/test_utils.dart';
+import '../../prompts/mocks/prompts_mocks.dart';
 
 Future<void> main() async {
   late MainPage page;
@@ -23,7 +26,11 @@ Future<void> main() async {
   late MainPresenter presenter;
   late MainNavigator navigator;
 
-  setUp(() => prepareAppForUnitTests());
+  setUp(() {
+    prepareAppForUnitTests();
+    getIt.registerSingleton<PromptsRepository>(PromptsMocks.promptsRepository);
+    when(() => PromptsMocks.promptsRepository.getPromptsList()).thenAnswer((_) async => successFuture([]));
+  });
 
   void initMvp() {
     initParams = const MainInitialParams();

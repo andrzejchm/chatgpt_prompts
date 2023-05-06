@@ -1,11 +1,18 @@
-import 'package:dartz/dartz.dart';
-import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompts_list_failure.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
+import 'package:dartz/dartz.dart';
+
+typedef GetPromptsListResult = Either<GetPromptsListFailure, List<Prompt>>;
 
 class GetPromptsListUseCase {
-  const GetPromptsListUseCase();
+  const GetPromptsListUseCase(
+    this._promptsRepository,
+  );
 
-  Future<Either<GetPromptsListFailure, Unit>> execute() async {
-    return failure(const GetPromptsListFailure.unknown());
+  final PromptsRepository _promptsRepository;
+
+  Future<GetPromptsListResult> execute() async {
+    return _promptsRepository.getPromptsList();
   }
 }

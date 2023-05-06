@@ -24,6 +24,7 @@ void main() {
     model = PromptsPresentationModel.initial(
       const PromptsInitialParams(),
       MockPromptsListPresenter(),
+      MockPromptDetailsPresenter(),
     );
     navigator = MockPromptsNavigator();
     presenter = PromptsPresenter(

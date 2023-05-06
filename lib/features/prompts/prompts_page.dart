@@ -1,6 +1,7 @@
 // ignore: unused_import
 import 'package:bloc/bloc.dart';
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/widgets/prompts_side_panel.dart';
@@ -32,7 +33,9 @@ class _PromptsPageState extends State<PromptsPage>
               );
             },
           ),
-          details: (_) => const Center(child: Text('PromptsPage\n(NOT IMPLEMENTED YET)')),
+          details: (_) => PromptDetailsPage(
+            presenter: state.promptDetailsPresenter,
+          ),
         ),
       );
 }

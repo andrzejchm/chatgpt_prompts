@@ -29,6 +29,7 @@ Future<void> prepareAppForUnitTests() async {
 
 Future<void> configureDependenciesForTests() async {
   await getIt.reset();
+  getIt.allowReassignment = true;
   configureDependencies();
 }
 

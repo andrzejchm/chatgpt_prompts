@@ -5,6 +5,7 @@ import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_prese
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presenter.dart';
 import '../../../test_utils/test_utils.dart';
 import '../mocks/prompts_mock_definitions.dart';
+import '../mocks/prompts_mocks.dart';
 
 void main() {
   late PromptsListPresentationModel model;
@@ -26,6 +27,7 @@ void main() {
     presenter = PromptsListPresenter(
       model,
       navigator,
+      PromptsMocks.getPromptsListUseCase,
     );
   });
 }

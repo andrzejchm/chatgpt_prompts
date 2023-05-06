@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
+import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_navigator.dart';
@@ -9,6 +11,7 @@ import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_prese
 import '../../../mocks/mocks.dart';
 import '../../../test_utils/golden_tests_utils.dart';
 import '../../../test_utils/test_utils.dart';
+import '../mocks/prompts_mocks.dart';
 
 Future<void> main() async {
   late PromptsListPage page;
@@ -28,7 +31,9 @@ Future<void> main() async {
     presenter = PromptsListPresenter(
       model,
       navigator,
+      PromptsMocks.getPromptsListUseCase,
     );
+    when(() => PromptsMocks.getPromptsListUseCase.execute()).thenAnswer((_) async => success([]));
     page = PromptsListPage(presenter: presenter);
   }
 
