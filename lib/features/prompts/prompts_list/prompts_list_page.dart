@@ -22,7 +22,7 @@ class PromptsListPage extends StatefulWidget with HasPresenter<PromptsListPresen
 class _PromptsListPageState extends State<PromptsListPage>
     with PresenterStateMixin<PromptsListViewModel, PromptsListPresenter, PromptsListPage> {
   @override
-  Widget build(BuildContext context) =>  Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         backgroundColor: colors(context).surfaceVariant,
         body: const Center(
           child: Text('PromptsListPage\n(NOT IMPLEMENTED YET)'),

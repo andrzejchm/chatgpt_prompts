@@ -64,6 +64,8 @@ dev_dependencies:
   # utils
   meta: 1.8.0
 
+  flutter_launcher_icons: 0.13.1
+
 flutter:
   uses-material-design: true
   generate: true
@@ -84,3 +86,10 @@ import_sorter:
   comments: false # Optional, defaults to true
   ignored_files: # Optional, defaults to []
     - \/lib\/*
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+  macos:
+    generate: true
