@@ -5,6 +5,10 @@ import 'package:chatgpt_prompts/features/main/main_navigator.dart';
 import 'package:chatgpt_prompts/features/main/main_page.dart';
 import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
 import 'package:chatgpt_prompts/features/main/main_presenter.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
+import 'package:chatgpt_prompts/features/settings/settings_initial_params.dart';
+import 'package:chatgpt_prompts/features/settings/settings_presenter.dart';
 
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
@@ -60,6 +64,8 @@ void _configureMvp() {
           (params, _) => MainPresentationModel.initial(
             params,
             getIt(param1: const ChatInitialParams()),
+            getIt<SettingsPresenter>(param1: const SettingsInitialParams()),
+            getIt<PromptsPresenter>(param1: const PromptsInitialParams()),
           ),
         )
         ..registerFactoryParam<MainPresenter, MainInitialParams, dynamic>(

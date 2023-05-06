@@ -1,5 +1,7 @@
 import 'package:chatgpt_prompts/features/chats/chat/chat_presenter.dart';
 import 'package:chatgpt_prompts/features/main/main_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
+import 'package:chatgpt_prompts/features/settings/settings_presenter.dart';
 
 /// Model used by presenter, contains fields that are relevant to presenters and implements ViewModel to expose data to view (page)
 class MainPresentationModel implements MainViewModel {
@@ -8,16 +10,24 @@ class MainPresentationModel implements MainViewModel {
     // ignore: avoid_unused_constructor_parameters
     MainInitialParams initialParams,
     this.chatPresenter,
+    this.settingsPresenter,
+    this.promptsPresenter,
   ) : selectedTab = MainTab.chat;
 
   /// Used for the copyWith method
-  MainPresentationModel._(
-    this.selectedTab,
-    this.chatPresenter,
-  );
+  MainPresentationModel._({
+    required this.selectedTab,
+    required this.chatPresenter,
+    required this.settingsPresenter,
+    required this.promptsPresenter,
+  });
 
   @override
   final ChatPresenter chatPresenter;
+  @override
+  final SettingsPresenter settingsPresenter;
+  @override
+  final PromptsPresenter promptsPresenter;
 
   @override
   final MainTab selectedTab;
@@ -36,10 +46,14 @@ class MainPresentationModel implements MainViewModel {
   MainPresentationModel copyWith({
     MainTab? selectedTab,
     ChatPresenter? chatPresenter,
+    SettingsPresenter? settingsPresenter,
+    PromptsPresenter? promptsPresenter,
   }) {
     return MainPresentationModel._(
-      selectedTab ?? this.selectedTab,
-      chatPresenter ?? this.chatPresenter,
+      selectedTab: selectedTab ?? this.selectedTab,
+      chatPresenter: chatPresenter ?? this.chatPresenter,
+      settingsPresenter: settingsPresenter ?? this.settingsPresenter,
+      promptsPresenter: promptsPresenter ?? this.promptsPresenter,
     );
   }
 }
@@ -53,6 +67,10 @@ abstract class MainViewModel {
   int get selectedTabIndex;
 
   ChatPresenter get chatPresenter;
+
+  SettingsPresenter get settingsPresenter;
+
+  PromptsPresenter get promptsPresenter;
 }
 
 enum MainTab {

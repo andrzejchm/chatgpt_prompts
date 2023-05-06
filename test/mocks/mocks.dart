@@ -9,6 +9,8 @@ import '../features/app_init/mocks/app_init_mocks.dart';
 import '../features/auth/mocks/auth_mocks.dart';
 import '../features/chats/mocks/chats_mocks.dart';
 import '../features/main/mocks/main_mocks.dart';
+import '../features/prompts/mocks/prompts_mocks.dart';
+import '../features/settings/mocks/settings_mocks.dart';
 import 'mock_definitions.dart';
 
 //DO-NOT-REMOVE IMPORTS_MOCKS
@@ -45,6 +47,8 @@ class Mocks {
     AuthMocks.init();
     ChatsMocks.init();
     MainMocks.init();
+    PromptsMocks.init();
+    SettingsMocks.init();
 //DO-NOT-REMOVE FEATURE_MOCKS_INIT
 
     _initMocks();

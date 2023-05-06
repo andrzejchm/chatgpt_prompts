@@ -1,0 +1,3 @@
+class SettingsInitialParams {
+  const SettingsInitialParams();
+}

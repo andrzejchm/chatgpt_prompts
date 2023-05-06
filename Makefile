@@ -3,7 +3,7 @@ file := test/coverage_helper_test.dart
 
 format_code:
 	@echo "\033[32m Formatting code... \033[0m"
-	@fvm flutter format --line-length 120 lib test
+	@fvm dart format --line-length 120 lib test
 
 check: format_code
 	@echo "\033[32m run 'pub get' \033[0m"
