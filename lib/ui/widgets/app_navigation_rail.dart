@@ -17,12 +17,20 @@ class AppNavigationRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = colors(context);
     return NavigationRail(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       destinations: tabs.map((it) => it.toNavigationRailDestination(context)).toList(),
       labelType: NavigationRailLabelType.all,
       selectedIndex: selectedTabIndex,
       onDestinationSelected: onTabSelected,
+      selectedIconTheme: IconThemeData(color: color.onBackground),
+      selectedLabelTextStyle: textStyles.caption.copyWith(
+        color: color.onBackground,
+      ),
+      unselectedLabelTextStyle: textStyles.caption.copyWith(
+        color: color.onSurfaceVariant,
+      ),
     );
   }
 }

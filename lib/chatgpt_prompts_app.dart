@@ -35,10 +35,12 @@ class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
     return MaterialApp(
       home: home,
       theme: ThemeData(
+        useMaterial3: true,
         colorScheme: appTheme.colorsLight,
         scaffoldBackgroundColor: appTheme.colorsLight.background,
       ),
       darkTheme: ThemeData(
+        useMaterial3: true,
         colorScheme: appTheme.colorsDark,
         scaffoldBackgroundColor: appTheme.colorsDark.background,
       ),
