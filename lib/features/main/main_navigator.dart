@@ -14,7 +14,7 @@ class MainNavigator with NoRoutes {
 mixin MainRoute {
   Future<void> openMain(MainInitialParams initialParams) async {
     return appNavigator.push(
-      materialRoute(getIt<MainPage>(param1: initialParams)),
+      platformRoute(getIt<MainPage>(param1: initialParams)),
     );
   }
 

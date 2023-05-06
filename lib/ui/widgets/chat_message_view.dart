@@ -56,7 +56,7 @@ class ChatMessageView extends StatelessWidget {
                         vertical: dimens.spacingM,
                       ),
                       child: Text(
-                        _message.message,
+                        _message.content,
                         style: textStyles.body1,
                       ),
                     ),

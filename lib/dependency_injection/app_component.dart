@@ -1,4 +1,4 @@
-import 'package:chatgpt_prompts/core/data/dart_openai_repository.dart';
+import 'package:chatgpt_prompts/core/data/openai/dart_openai_repository.dart';
 import 'package:chatgpt_prompts/core/data/dotenv_config_provider.dart';
 import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/domain/repositories/openai_repository.dart';

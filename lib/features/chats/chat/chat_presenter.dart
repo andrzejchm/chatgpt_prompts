@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_message_input.dart';
+import 'package:chatgpt_prompts/core/domain/model/chat_completion_result.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_message.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/bloc_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_navigator.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_presentation_model.dart';
-import 'package:dart_openai/openai.dart';
 
 class ChatPresenter extends Cubit<ChatViewModel> {
   ChatPresenter(
@@ -22,8 +22,7 @@ class ChatPresenter extends Cubit<ChatViewModel> {
   ChatPresentationModel get _model => state as ChatPresentationModel;
 
   void onTapSend() {
-    final currentPrompt = _model.currentPrompt;
-    _emitUserMessage(currentPrompt);
+    _emitUserMessage();
     _createChatCompletionUseCase
         .execute(
           inputs: [
@@ -48,23 +47,23 @@ class ChatPresenter extends Cubit<ChatViewModel> {
         ),
       );
 
-  void _onMessageSent(OpenAIChatCompletionModel it) {
+  void _onMessageSent(ChatCompletionResult it) {
     return emit(
       _model.copyWith(
         messages: [
           ..._model.messages,
-          ChatMessage.assistant(message: it.choices.first.message.content),
+          ChatMessage.assistant(content: it.choices.first.message.content),
         ],
       ),
     );
   }
 
-  void _emitUserMessage(String currentPrompt) {
+  void _emitUserMessage() {
     emit(
       _model.copyWith(
         messages: [
           ..._model.messages,
-          ChatMessage.user(message: currentPrompt),
+          ChatMessage.user(content: _model.currentPrompt),
         ],
         currentPrompt: '',
       ),

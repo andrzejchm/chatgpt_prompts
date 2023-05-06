@@ -1,10 +1,8 @@
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_message_input.dart';
-import 'package:chatgpt_prompts/core/domain/model/create_chat_completion_failure.dart';
-import 'package:dart_openai/openai.dart';
-import 'package:dartz/dartz.dart';
+import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 
 abstract class OpenaiRepository {
-  Future<Either<CreateChatCompletionFailure, OpenAIChatCompletionModel>> createChatCompletion({
+  Future<CreateChatCompletionResult> createChatCompletion({
     required List<ChatCompletionMessageInput> inputs,
   });
 }

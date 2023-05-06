@@ -1,7 +1,7 @@
-import 'package:dart_openai/openai.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:chatgpt_prompts/core/domain/model/chat_completion_result.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
@@ -23,7 +23,7 @@ void main() {
     () async {
       // GIVEN
       when(() => Mocks.openaiRepository.createChatCompletion(inputs: any(named: 'inputs')))
-          .thenAnswer((_) async => success(MockOpenAIChatCompletionModel()));
+          .thenAnswer((_) async => success(const ChatCompletionResult.empty()));
       // WHEN
       final result = await useCase.execute(
         inputs: [],
@@ -39,6 +39,3 @@ void main() {
     expect(useCase, isNotNull);
   });
 }
-
-//ignore: avoid_implementing_value_types
-class MockOpenAIChatCompletionModel extends Mock implements OpenAIChatCompletionModel {}

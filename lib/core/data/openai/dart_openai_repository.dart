@@ -1,12 +1,12 @@
+import 'package:chatgpt_prompts/core/data/openai/model/openai_chat_completion_transformers.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_message_input.dart';
-import 'package:chatgpt_prompts/core/domain/model/chat_completion_role.dart';
 import 'package:chatgpt_prompts/core/domain/model/create_chat_completion_failure.dart';
 import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/domain/repositories/openai_repository.dart';
+import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/logging.dart';
 import 'package:dart_openai/openai.dart';
-import 'package:dartz/dartz.dart';
 
 class DartOpenaiRepository implements OpenaiRepository {
   const DartOpenaiRepository(
@@ -17,7 +17,7 @@ class DartOpenaiRepository implements OpenaiRepository {
   final ConfigProvider configProvider;
 
   @override
-  Future<Either<CreateChatCompletionFailure, OpenAIChatCompletionModel>> createChatCompletion({
+  Future<CreateChatCompletionResult> createChatCompletion({
     required List<ChatCompletionMessageInput> inputs,
   }) async {
     try {
@@ -26,34 +26,10 @@ class DartOpenaiRepository implements OpenaiRepository {
         model: openAiModel,
         messages: inputs.map((e) => e.toMessageModel()).toList(),
       );
-      return success(response);
+      return success(response.toChatCompletionResult());
     } catch (ex, stack) {
       logError(ex, stack);
       return failure(CreateChatCompletionFailure.unknown(ex));
-    }
-  }
-}
-
-//extension on chatCompletionMessageInput to create instances of   OpenAIChatCompletionChoiceMessageModel
-extension ChatCompletionMessageInputX on ChatCompletionMessageInput {
-  OpenAIChatCompletionChoiceMessageModel toMessageModel() {
-    return OpenAIChatCompletionChoiceMessageModel(
-      content: message,
-      role: role.toRole(),
-    );
-  }
-}
-
-//extension to create OpenAIChatMessageRole from ChatCompletionRole
-extension ChatCompletionRoleX on ChatCompletionRole {
-  OpenAIChatMessageRole toRole() {
-    switch (this) {
-      case ChatCompletionRole.system:
-        return OpenAIChatMessageRole.system;
-      case ChatCompletionRole.user:
-        return OpenAIChatMessageRole.user;
-      case ChatCompletionRole.assistant:
-        return OpenAIChatMessageRole.assistant;
     }
   }
 }

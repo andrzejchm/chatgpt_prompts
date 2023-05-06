@@ -5,44 +5,48 @@ import 'package:equatable/equatable.dart';
 
 class ChatMessage extends Equatable {
   const ChatMessage({
-    required this.message,
+    required this.content,
     required this.role,
   });
 
+  const ChatMessage.empty()
+      : content = '',
+        role = ChatCompletionRole.user;
+
   const ChatMessage.user({
-    required this.message,
+    required this.content,
   }) : role = ChatCompletionRole.user;
 
   const ChatMessage.system({
-    required this.message,
+    required this.content,
   }) : role = ChatCompletionRole.system;
 
   const ChatMessage.assistant({
-    required this.message,
+    required this.content,
   }) : role = ChatCompletionRole.assistant;
 
-  final String message;
+  final String content;
   final ChatCompletionRole role;
 
   @override
   List<Object?> get props => [
-        message,
+        content,
         role,
       ];
 
   //copyWith method
   ChatMessage copyWith({
-    String? message,
+    String? content,
     ChatCompletionRole? role,
   }) {
     return ChatMessage(
-      message: message ?? this.message,
+      content: content ?? this.content,
       role: role ?? this.role,
     );
   }
 
   ChatCompletionMessageInput toInput() => ChatCompletionMessageInput(
-        message: message,
+        message: content,
         role: role,
       );
 }
