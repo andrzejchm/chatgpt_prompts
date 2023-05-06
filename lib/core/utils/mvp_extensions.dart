@@ -10,6 +10,10 @@ mixin PresenterStateMixin<M, P extends Cubit<M>, T extends HasPresenter<P>> on S
 
   M get state => presenter.state;
 
+  /// whether presenter should be closed on dispose of the page widget. helpful if you create the presenter outside
+  /// of the scope of the page
+  bool get closePresenterOnDispose => true;
+
   Widget stateObserver({
     required BlocWidgetBuilder<M> builder,
     BlocBuilderCondition<M>? buildWhen,
@@ -37,7 +41,9 @@ mixin PresenterStateMixin<M, P extends Cubit<M>, T extends HasPresenter<P>> on S
   @override
   void dispose() {
     super.dispose();
-    presenter.close();
+    if (closePresenterOnDispose) {
+      presenter.close();
+    }
   }
 }
 

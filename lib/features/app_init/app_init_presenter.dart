@@ -9,7 +9,7 @@ import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_navigator.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_presentation_model.dart';
-import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
+import 'package:chatgpt_prompts/features/main/main_initial_params.dart';
 
 class AppInitPresenter extends Cubit<AppInitViewModel> with SubscriptionsMixin<AppInitViewModel> {
   AppInitPresenter(
@@ -40,7 +40,7 @@ class AppInitPresenter extends Cubit<AppInitViewModel> with SubscriptionsMixin<A
         navigator.showError(fail.displayableFailure());
       },
       success: (success) {
-        navigator.openMain(const ChatInitialParams());
+        navigator.openMain(const MainInitialParams());
       },
     );
   }

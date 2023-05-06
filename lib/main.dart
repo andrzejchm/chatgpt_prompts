@@ -6,8 +6,6 @@ import 'package:chatgpt_prompts/chatgpt_prompts_app.dart';
 import 'package:chatgpt_prompts/core/utils/logging.dart';
 import 'package:chatgpt_prompts/core/utils/platforms.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
-import 'package:chatgpt_prompts/navigation/app_navigator.dart';
-import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:window_manager/window_manager.dart';

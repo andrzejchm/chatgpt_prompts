@@ -12,8 +12,8 @@ class ChatNavigator with NoRoutes, ErrorDialogRoute {
   final AppNavigator appNavigator;
 }
 
-mixin MainRoute {
-  Future<void> openMain(ChatInitialParams initialParams) async {
+mixin ChatRoute {
+  Future<void> openChat(ChatInitialParams initialParams) async {
     return appNavigator.push(
       platformRoute(
         getIt<ChatPage>(param1: initialParams),

@@ -9,5 +9,8 @@
   "usernameHint": "username",
   "passwordHint": "password",
   "logInAction": "Log in",
-  "commentBarHint": "Type your message here..."
+  "commentBarHint": "Type your message here...",
+  "mainNavPrompts": "Prompts",
+  "mainNavChat": "Chat",
+  "mainNavSettings": "Settings"
 }

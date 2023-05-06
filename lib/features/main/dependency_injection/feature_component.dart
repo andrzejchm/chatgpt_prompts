@@ -1,4 +1,10 @@
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
+import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
+import 'package:chatgpt_prompts/features/main/main_initial_params.dart';
+import 'package:chatgpt_prompts/features/main/main_navigator.dart';
+import 'package:chatgpt_prompts/features/main/main_page.dart';
+import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
+import 'package:chatgpt_prompts/features/main/main_presenter.dart';
 
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
@@ -47,6 +53,22 @@ void _configureUseCases() {
 void _configureMvp() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE MVP_GET_IT_CONFIG
+        ..registerFactory<MainNavigator>(
+          () => MainNavigator(getIt()),
+        )
+        ..registerFactoryParam<MainPresentationModel, MainInitialParams, dynamic>(
+          (params, _) => MainPresentationModel.initial(
+            params,
+            getIt(param1: const ChatInitialParams()),
+          ),
+        )
+        ..registerFactoryParam<MainPresenter, MainInitialParams, dynamic>(
+          (params, _) => MainPresenter(getIt(param1: params), getIt()),
+        )
+        ..registerFactoryParam<MainPage, MainInitialParams, dynamic>(
+          (params, _) => MainPage(presenter: getIt(param1: params)),
+        )
+
+//DO-NOT-REMOVE MVP_GET_IT_CONFIG
       ;
 }

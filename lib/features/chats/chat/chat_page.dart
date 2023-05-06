@@ -83,4 +83,7 @@ class _ChatPageState extends State<ChatPage> with PresenterStateMixin<ChatViewMo
           ),
         ),
       );
+
+  @override
+  bool get closePresenterOnDispose => false;
 }
