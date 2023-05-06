@@ -36,6 +36,7 @@ class ResizableRow extends StatefulWidget {
 
 class _ResizableRowState extends State<ResizableRow> {
   static const resizerWidth = 4.0;
+  static const resizerOpacity = 0.1;
 
   late double currentWidth = widget.initialPanelWidth;
   late double _maxLayoutWidth;
@@ -79,7 +80,7 @@ class _ResizableRowState extends State<ResizableRow> {
               child: MouseRegion(
                 cursor: SystemMouseCursors.resizeColumn,
                 child: Container(
-                  color: colors(context).onBackground.withOpacity(0.1),
+                  color: colors(context).onBackground.withOpacity(resizerOpacity),
                   width: resizerWidth,
                   height: double.infinity,
                 ),
