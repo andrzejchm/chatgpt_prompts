@@ -58,6 +58,7 @@ class WidgetRobot {
     final start = DateTime.now();
     while (finder.evaluate().isEmpty && DateTime.now().difference(start) < timeout) {
       await tester.pumpAndSettle();
+      await tester.runAsync(() => Future.value());
     }
     await tester.pumpAndSettle();
   }

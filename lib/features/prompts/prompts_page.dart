@@ -5,6 +5,7 @@ import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_p
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/widgets/prompts_side_panel.dart';
+import 'package:chatgpt_prompts/ui/widgets/resizable_column.dart';
 import 'package:chatgpt_prompts/ui/widgets/resizable_row.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,11 @@ class _PromptsPageState extends State<PromptsPage>
           ),
           details: (_) => stateObserver(
             builder: (context, state) {
-              return PromptDetailsPage(
-                presenter: state.promptDetailsPresenter,
+              return ResizableColumn(
+                top: (_) => PromptDetailsPage(
+                  presenter: state.promptDetailsPresenter,
+                ),
+                bottom: (_) => const Placeholder(),
               );
             },
           ),

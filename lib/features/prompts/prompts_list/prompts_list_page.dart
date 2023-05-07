@@ -31,7 +31,7 @@ class _PromptsListPageState extends State<PromptsListPage>
   @override
   Widget build(BuildContext context) => stateObserver(
         builder: (context, state) => Scaffold(
-          backgroundColor: colors(context).surface,
+          backgroundColor: colorsOf(context).surface,
           body: ListView.builder(
             itemCount: state.prompts.length,
             itemBuilder: (context, index) {

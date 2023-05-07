@@ -16,9 +16,10 @@ class PromptsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: selected ? colors(context).onSecondary : Colors.transparent,
+    return Material(
+      color: selected ? colorsOf(context).onSecondary : Colors.transparent,
       child: ListTile(
+        dense: true,
         title: Text(prompt.name),
         subtitle: Text(
           prompt.description,

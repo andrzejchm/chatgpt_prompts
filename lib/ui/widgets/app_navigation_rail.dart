@@ -17,7 +17,8 @@ class AppNavigationRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = colors(context);
+    final color = colorsOf(context);
+    final textStyles = textStylesOf(context);
     return NavigationRail(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       destinations: tabs.map((it) => it.toNavigationRailDestination(context)).toList(),
@@ -25,10 +26,10 @@ class AppNavigationRail extends StatelessWidget {
       selectedIndex: selectedTabIndex,
       onDestinationSelected: onTabSelected,
       selectedIconTheme: IconThemeData(color: color.onBackground),
-      selectedLabelTextStyle: textStyles.caption.copyWith(
+      selectedLabelTextStyle: textStyles.bodySmall?.copyWith(
         color: color.onBackground,
       ),
-      unselectedLabelTextStyle: textStyles.caption.copyWith(
+      unselectedLabelTextStyle: textStyles.bodySmall?.copyWith(
         color: color.onSurfaceVariant,
       ),
     );
@@ -62,6 +63,6 @@ extension MainTabExtension on MainTab {
   NavigationRailDestination toNavigationRailDestination(BuildContext context) => NavigationRailDestination(
         icon: Icon(icon),
         label: Text(title),
-        selectedIcon: Icon(icon, color: colors(context).onBackground),
+        selectedIcon: Icon(icon, color: colorsOf(context).onBackground),
       );
 }

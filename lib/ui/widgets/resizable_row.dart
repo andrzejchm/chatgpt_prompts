@@ -80,7 +80,7 @@ class _ResizableRowState extends State<ResizableRow> {
               child: MouseRegion(
                 cursor: SystemMouseCursors.resizeColumn,
                 child: Container(
-                  color: colors(context).onBackground.withOpacity(resizerOpacity),
+                  color: colorsOf(context).onBackground.withOpacity(resizerOpacity),
                   width: resizerWidth,
                   height: double.infinity,
                 ),

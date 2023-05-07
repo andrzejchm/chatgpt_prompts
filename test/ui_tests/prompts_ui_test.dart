@@ -41,10 +41,10 @@ void main() {
       promptDetailsRobot.verifyPageVisible();
 
       await promptsRobot.promptListItemWithName('Prompt 0').tap();
-      await promptDetailsRobot.title.hasText('Prompt 0');
+      await promptDetailsRobot.promptName.hasText('Prompt 0');
 
       await promptsRobot.promptListItemWithName('Prompt 1').tap();
-      await promptDetailsRobot.title.hasText('Prompt 1');
+      await promptDetailsRobot.promptName.hasText('Prompt 1');
     },
   );
 }

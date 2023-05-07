@@ -2,6 +2,7 @@
 
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_variable.dart';
 
 class Stubs {
   static List<Prompt> get promptsList => List.generate(
@@ -12,13 +13,31 @@ class Stubs {
         ),
       );
 
+  static String get promptTemplate => '''
+      create a greeting message to the user that said the following
+       ```{{greeting}}```
+      make the response with {{format}} format
+      '''
+      .trim();
+
   static Prompt get prompt => Prompt(
-        name: 'Name',
-        template: 'Template',
-        id: const Id('prompt-id'),
+        name: 'Prompt name',
+        template: promptTemplate,
+        id: const Id('id-prompt'),
         createdAtUtc: DateTime.now().toIso8601String(),
         updatedAtUtc: DateTime.now().toIso8601String(),
         description: 'Description',
-        variables: const [],
+        variables: [
+          PromptTemplateVariable(
+            slug: 'greeting',
+            position: promptTemplate.indexOf('{{greeting}}'),
+            description: 'What user has said?',
+          ),
+          PromptTemplateVariable(
+            slug: 'format',
+            position: promptTemplate.indexOf('{{format}}'),
+            description: 'What format to output in?',
+          ),
+        ],
       );
 }

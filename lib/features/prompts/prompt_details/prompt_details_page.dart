@@ -3,7 +3,12 @@ import 'package:bloc/bloc.dart';
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/widgets/execute_button.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/widgets/prompt_details_header_sliver.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_details/widgets/prompt_details_variables_sliver.dart';
+import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class PromptDetailsPage extends StatefulWidget with HasPresenter<PromptDetailsPresenter> {
   const PromptDetailsPage({
@@ -23,9 +28,44 @@ class _PromptDetailsPageState extends State<PromptDetailsPage>
   @override
   Widget build(BuildContext context) => stateObserver(
         builder: (context, state) {
+          final windowPadding = MediaQuery.of(context).padding;
+
+          Widget horizontalPadding(Widget sliver) => SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: dimens.spacingM),
+                sliver: sliver,
+              );
+
           return Scaffold(
-            body: Center(
-              child: Text(state.prompt.name),
+            body: Stack(
+              children: [
+                Positioned.fill(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverGap(windowPadding.top),
+                      horizontalPadding(
+                        PromptDetailsHeaderSliver(
+                          prompt: state.prompt,
+                          onTapEdit: presenter.onTapEdit,
+                          onTapTemplate: presenter.onTapTemplate,
+                        ),
+                      ),
+                      SliverGap(dimens.spacingL),
+                      horizontalPadding(
+                        PromptDetailsVariablesSliver(
+                          prompt: state.prompt,
+                          onValueChanged: presenter.onVariableValueChanged,
+                        ),
+                      ),
+                      SliverGap(windowPadding.bottom + kToolbarHeight),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  bottom: dimens.spacingM,
+                  right: dimens.spacingM,
+                  child: ExecuteButton(presenter: presenter),
+                ),
+              ],
             ),
           );
         },

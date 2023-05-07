@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:chatgpt_prompts/chatgpt_prompts_app.dart';
+
 class UITestApp extends StatelessWidget {
   final Widget child;
 
@@ -14,7 +16,7 @@ class UITestApp extends StatelessWidget {
       data: const MediaQueryData(
         size: Size(1024, 768),
       ),
-      child: MaterialApp(
+      child: ChatgptPromptsApp(
         home: child,
       ),
     );

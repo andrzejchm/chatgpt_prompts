@@ -1,24 +1,33 @@
+import 'package:chatgpt_prompts/core/utils/platforms.dart';
 import 'package:chatgpt_prompts/ui/theme/chatgpt_prompts_dimens.dart';
-import 'package:chatgpt_prompts/ui/theme/chatgpt_prompts_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppThemeData {
   const AppThemeData({
     required this.colorsLight,
     required this.colorsDark,
-    required this.textStyles,
+    required this.typographyLight,
+    required this.typographyDark,
     required this.dimens,
   });
 
   AppThemeData.defaults()
       : colorsLight = defaultSchemeLight,
         colorsDark = defaultSchemeDark,
-        textStyles = ChatgptPromptsTextStyles.defaultStyle(),
-        dimens = ChatgptPromptsDimens();
+        dimens = ChatgptPromptsDimens(),
+        typographyLight = Typography.material2021(
+          platform: Platforms.currentPlatform,
+          colorScheme: defaultSchemeLight,
+        ),
+        typographyDark = Typography.material2021(
+          platform: Platforms.currentPlatform,
+          colorScheme: defaultSchemeDark,
+        );
 
+  final Typography typographyLight;
+  final Typography typographyDark;
   final ColorScheme colorsLight;
   final ColorScheme colorsDark;
-  final ChatgptPromptsTextStyles textStyles;
   final ChatgptPromptsDimens dimens;
 
   static const defaultSchemeLight = ColorScheme(

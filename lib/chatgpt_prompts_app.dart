@@ -41,6 +41,7 @@ class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
+        typography: appTheme.typographyLight,
         colorScheme: appTheme.colorsDark,
         scaffoldBackgroundColor: appTheme.colorsDark.background,
       ),

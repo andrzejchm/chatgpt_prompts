@@ -9,8 +9,17 @@ import 'base/widget_robot.dart';
 class PromptDetailsRobot extends PageRobot<PromptDetailsPage> {
   PromptDetailsRobot(super.tester);
 
-  WidgetRobot get title => WidgetRobot(
+  WidgetRobot get promptName => WidgetRobot(
         tester,
-        childOfThisPage(matching: find.byType(Text)),
+        childOfThisPage(
+          matching: find.byKey(const ValueKey('prompt_details_header_title')),
+        ),
+      );
+
+  WidgetRobot get promptDescription => WidgetRobot(
+        tester,
+        childOfThisPage(
+          matching: find.byKey(const ValueKey('prompt_details_header_description')),
+        ),
       );
 }

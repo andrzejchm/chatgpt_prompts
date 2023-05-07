@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_variable.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 
@@ -13,12 +14,28 @@ class InMemoryPromptsRepository implements PromptsRepository {
     5,
     (index) => Prompt(
       name: 'Name $index',
-      template: 'Template $index',
+      template: '''
+      create a greeting message to the user that said the following
+       ```{{greeting}}```
+      make the response with {{format}} format
+      '''
+          .trim(),
       id: Id('id $index'),
       createdAtUtc: DateTime.now().toIso8601String(),
       updatedAtUtc: DateTime.now().toIso8601String(),
       description: 'Description $index',
-      variables: const [],
+      variables: const [
+        PromptTemplateVariable(
+          slug: 'greeting',
+          position: 72,
+          description: 'What user has said?',
+        ),
+        PromptTemplateVariable(
+          slug: 'format',
+          position: 117,
+          description: 'What format to output in?',
+        ),
+      ],
     ),
   );
 

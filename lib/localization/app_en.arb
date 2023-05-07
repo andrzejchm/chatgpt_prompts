@@ -12,5 +12,6 @@
   "commentBarHint": "Type your message here...",
   "mainNavPrompts": "Prompts",
   "mainNavChat": "Chat",
-  "mainNavSettings": "Settings"
+  "mainNavSettings": "Settings",
+  "actionExecute": "Execute"
 }
