@@ -1,11 +1,11 @@
+import 'package:flutter_test/flutter_test.dart';
+
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
-import 'package:flutter_test/flutter_test.dart';
-
 import '../../../mocks/mocks.dart';
 import '../../../mocks/stubs.dart';
 import '../../../test_utils/golden_tests_utils.dart';

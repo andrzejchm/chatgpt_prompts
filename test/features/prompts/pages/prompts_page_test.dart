@@ -29,9 +29,7 @@ Future<void> main() async {
     prepareAppForUnitTests();
     getIt.registerSingleton<PromptsRepository>(PromptsMocks.promptsRepository);
     when(() => PromptsMocks.promptsRepository.getPromptsList()).thenAnswer(
-      (_) async => successFuture(
-        List.generate(10, (index) => Stubs.prompt.copyWith(name: 'name $index')),
-      ),
+      (_) async => successFuture(Stubs.promptsList),
     );
   });
 

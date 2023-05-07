@@ -1,3 +1,6 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
@@ -5,9 +8,6 @@ import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_navig
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presenter.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import '../../../mocks/mocks.dart';
 import '../../../mocks/stubs.dart';
 import '../../../test_utils/golden_tests_utils.dart';
@@ -36,10 +36,7 @@ Future<void> main() async {
     );
     when(() => PromptsMocks.getPromptsListUseCase.execute()).thenAnswer(
       (_) async => success(
-        List.generate(
-          10,
-          (index) => Stubs.prompt.copyWith(name: 'Prompt $index'),
-        ),
+        Stubs.promptsList,
       ),
     );
     page = PromptsListPage(presenter: presenter);

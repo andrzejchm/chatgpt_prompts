@@ -63,6 +63,7 @@ dev_dependencies:
 
   # utils
   meta: 1.8.0
+  recase: 4.0.0
 
   flutter_launcher_icons: 0.13.1
 
