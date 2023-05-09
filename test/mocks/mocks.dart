@@ -30,7 +30,8 @@ class Mocks {
 //DO-NOT-REMOVE USE_CASE_MOCKS_STATIC_FIELD
 
   // REPOSITORIES
-  static late MockOpenaiRepository openaiRepository;
+  static late MockChatsRepository chatsRepository;
+
 //DO-NOT-REMOVE REPOSITORIES_MOCKS_STATIC_FIELD
 
   // STORES
@@ -68,7 +69,7 @@ class Mocks {
 //DO-NOT-REMOVE USE_CASE_INIT_MOCKS
 
     // REPOSITORIES
-    openaiRepository = MockOpenaiRepository();
+    chatsRepository = MockChatsRepository();
 //DO-NOT-REMOVE REPOSITORIES_INIT_MOCKS
 
     // STORES
@@ -93,7 +94,8 @@ class Mocks {
 //DO-NOT-REMOVE USE_CASE_MOCK_FALLBACK_VALUE
 
     // REPOSITORIES
-    registerFallbackValue(MockOpenaiRepository());
+    registerFallbackValue(MockChatsRepository());
+
 //DO-NOT-REMOVE REPOSITORIES_MOCK_FALLBACK_VALUE
 
     // STORES

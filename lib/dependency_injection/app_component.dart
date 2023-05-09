@@ -1,7 +1,6 @@
-import 'package:chatgpt_prompts/core/data/openai/dart_openai_repository.dart';
 import 'package:chatgpt_prompts/core/data/dotenv_config_provider.dart';
 import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
-import 'package:chatgpt_prompts/core/domain/repositories/openai_repository.dart';
+
 import 'package:chatgpt_prompts/core/domain/stores/user_store.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/current_time_provider.dart';
@@ -53,12 +52,7 @@ void _configureGeneralDependencies() {
 void _configureRepositories() {
   // ignore: unnecessary_statements
   getIt
-        ..registerFactory<OpenaiRepository>(
-          () => DartOpenaiRepository(
-            getIt(),
-          ),
-        )
-//DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
+      //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
       ;
 }
 

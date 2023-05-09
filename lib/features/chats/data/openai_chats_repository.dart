@@ -2,14 +2,14 @@ import 'package:chatgpt_prompts/core/data/openai/model/openai_chat_completion_tr
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_message_input.dart';
 import 'package:chatgpt_prompts/core/domain/model/create_chat_completion_failure.dart';
 import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
-import 'package:chatgpt_prompts/core/domain/repositories/openai_repository.dart';
+import 'package:chatgpt_prompts/features/chats/domain/repositories/chats_repository.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/logging.dart';
 import 'package:dart_openai/openai.dart';
 
-class DartOpenaiRepository implements OpenaiRepository {
-  const DartOpenaiRepository(
+class OpenaiChatsRepository implements ChatsRepository {
+  const OpenaiChatsRepository(
     this.configProvider,
   );
 

@@ -5,7 +5,7 @@ import 'package:chatgpt_prompts/core/domain/model/chat_completion_result.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
-import '../../mocks/mocks.dart';
+import '../../features/chats/mocks/chats_mocks.dart';
 import '../../test_utils/test_utils.dart';
 
 void main() {
@@ -14,7 +14,7 @@ void main() {
   setUp(() {
     prepareAppForUnitTests();
     useCase = CreateChatCompletionUseCase(
-      Mocks.openaiRepository,
+      ChatsMocks.chatsRepository,
     );
   });
 
@@ -22,7 +22,7 @@ void main() {
     'use case executes normally',
     () async {
       // GIVEN
-      when(() => Mocks.openaiRepository.createChatCompletion(inputs: any(named: 'inputs')))
+      when(() => ChatsMocks.chatsRepository.createChatCompletion(inputs: any(named: 'inputs')))
           .thenAnswer((_) async => success(const ChatCompletionResult.empty()));
       // WHEN
       final result = await useCase.execute(

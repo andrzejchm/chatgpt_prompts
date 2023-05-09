@@ -3,12 +3,12 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/core/domain/model/create_chat_completion_failure.dart';
 import 'package:chatgpt_prompts/core/domain/model/user.dart';
-import 'package:chatgpt_prompts/core/domain/repositories/openai_repository.dart';
 import 'package:chatgpt_prompts/core/domain/stores/user_store.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/current_time_provider.dart';
 import 'package:chatgpt_prompts/core/utils/debouncer.dart';
 import 'package:chatgpt_prompts/core/utils/periodic_task_executor.dart';
+import 'package:chatgpt_prompts/features/chats/domain/repositories/chats_repository.dart';
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
 
 //DO-NOT-REMOVE IMPORTS_MOCK_DEFINITIONS
@@ -27,7 +27,7 @@ class MockCreateChatCompletionUseCase extends Mock implements CreateChatCompleti
 
 // REPOSITORIES
 
-class MockOpenaiRepository extends Mock implements OpenaiRepository {}
+class MockChatsRepository extends Mock implements ChatsRepository {}
 //DO-NOT-REMOVE REPOSITORIES_MOCK_DEFINITION
 
 // STORES

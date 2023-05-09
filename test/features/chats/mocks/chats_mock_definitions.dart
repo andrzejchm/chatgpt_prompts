@@ -5,6 +5,7 @@ import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_navigator.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_presentation_model.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_presenter.dart';
+import 'package:chatgpt_prompts/features/chats/domain/repositories/chats_repository.dart';
 
 //DO-NOT-REMOVE IMPORTS_MOCK_DEFINITIONS
 
@@ -23,6 +24,7 @@ class MockChatInitialParams extends Mock implements ChatInitialParams {}
 //DO-NOT-REMOVE USE_CASE_MOCK_DEFINITION
 
 // REPOSITORIES
+class MockChatsRepository extends Mock implements ChatsRepository {}
 //DO-NOT-REMOVE REPOSITORIES_MOCK_DEFINITION
 
 // STORES

@@ -4,6 +4,8 @@ import 'package:chatgpt_prompts/features/chats/chat/chat_presentation_model.dart
 import 'package:chatgpt_prompts/features/chats/chat/chat_presenter.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_page.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
+import 'package:chatgpt_prompts/features/chats/data/openai_chats_repository.dart';
+import 'package:chatgpt_prompts/features/chats/domain/repositories/chats_repository.dart';
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 /// registers all the dependencies in dependency graph in get_it package
@@ -27,7 +29,13 @@ void _configureGeneralDependencies() {
 void _configureRepositories() {
   // ignore: unnecessary_statements
   getIt
-      //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
+        ..registerFactory<ChatsRepository>(
+          () => OpenaiChatsRepository(
+            getIt(),
+          ),
+        )
+
+//DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
       ;
 }
 

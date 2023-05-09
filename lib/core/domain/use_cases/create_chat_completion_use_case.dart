@@ -1,21 +1,21 @@
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_message_input.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_result.dart';
 import 'package:chatgpt_prompts/core/domain/model/create_chat_completion_failure.dart';
-import 'package:chatgpt_prompts/core/domain/repositories/openai_repository.dart';
+import 'package:chatgpt_prompts/features/chats/domain/repositories/chats_repository.dart';
 import 'package:dartz/dartz.dart';
 
 typedef CreateChatCompletionResult = Either<CreateChatCompletionFailure, ChatCompletionResult>;
 
 class CreateChatCompletionUseCase {
   const CreateChatCompletionUseCase(
-    this._openaiRepository,
+    this._chatsRepository,
   );
 
-  final OpenaiRepository _openaiRepository;
+  final ChatsRepository _chatsRepository;
 
   Future<CreateChatCompletionResult> execute({
     required List<ChatCompletionMessageInput> inputs,
   }) async {
-    return _openaiRepository.createChatCompletion(inputs: inputs);
+    return _chatsRepository.createChatCompletion(inputs: inputs);
   }
 }
