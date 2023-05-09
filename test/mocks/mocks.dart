@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/core/domain/model/displayable_failure.dart';
+import 'package:chatgpt_prompts/core/domain/model/local_preferences.dart';
 import 'package:chatgpt_prompts/core/utils/periodic_task_executor.dart';
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
 import '../features/app_init/mocks/app_init_mocks.dart';
@@ -27,11 +28,18 @@ class Mocks {
   static late MockCreateChatCompletionFailure createChatCompletionFailure;
   static late MockCreateChatCompletionUseCase createChatCompletionUseCase;
 
+  static late MockGetLocalPreferencesFailure getLocalPreferencesFailure;
+  static late MockGetLocalPreferencesUseCase getLocalPreferencesUseCase;
+
+  static late MockSaveLocalPreferencesFailure saveLocalPreferencesFailure;
+  static late MockSaveLocalPreferencesUseCase saveLocalPreferencesUseCase;
+
 //DO-NOT-REMOVE USE_CASE_MOCKS_STATIC_FIELD
 
   // REPOSITORIES
   static late MockChatsRepository chatsRepository;
 
+  static late MockLocalPreferencesRepository localPreferencesRepository;
 //DO-NOT-REMOVE REPOSITORIES_MOCKS_STATIC_FIELD
 
   // STORES
@@ -66,10 +74,17 @@ class Mocks {
     createChatCompletionFailure = MockCreateChatCompletionFailure();
     createChatCompletionUseCase = MockCreateChatCompletionUseCase();
 
+    getLocalPreferencesFailure = MockGetLocalPreferencesFailure();
+    getLocalPreferencesUseCase = MockGetLocalPreferencesUseCase();
+
+    saveLocalPreferencesFailure = MockSaveLocalPreferencesFailure();
+    saveLocalPreferencesUseCase = MockSaveLocalPreferencesUseCase();
+
 //DO-NOT-REMOVE USE_CASE_INIT_MOCKS
 
     // REPOSITORIES
     chatsRepository = MockChatsRepository();
+    localPreferencesRepository = MockLocalPreferencesRepository();
 //DO-NOT-REMOVE REPOSITORIES_INIT_MOCKS
 
     // STORES
@@ -91,11 +106,18 @@ class Mocks {
     registerFallbackValue(MockCreateChatCompletionFailure());
     registerFallbackValue(MockCreateChatCompletionUseCase());
 
+    registerFallbackValue(MockGetLocalPreferencesFailure());
+    registerFallbackValue(MockGetLocalPreferencesUseCase());
+
+    registerFallbackValue(MockSaveLocalPreferencesFailure());
+    registerFallbackValue(MockSaveLocalPreferencesUseCase());
+
 //DO-NOT-REMOVE USE_CASE_MOCK_FALLBACK_VALUE
 
     // REPOSITORIES
     registerFallbackValue(MockChatsRepository());
 
+    registerFallbackValue(MockLocalPreferencesRepository());
 //DO-NOT-REMOVE REPOSITORIES_MOCK_FALLBACK_VALUE
 
     // STORES
@@ -106,5 +128,6 @@ class Mocks {
     registerFallbackValue(MockDebouncer());
     registerFallbackValue(MockCurrentTimeProvider());
     registerFallbackValue(PeriodicTaskExecutor());
+    registerFallbackValue(const LocalPreferences.empty());
   }
 }

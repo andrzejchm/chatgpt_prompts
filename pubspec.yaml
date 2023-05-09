@@ -67,6 +67,9 @@ dev_dependencies:
   meta: 1.8.0
   recase: 4.0.0
 
+  # persistence
+  shared_preferences: 2.1.1
+
   flutter_launcher_icons: 0.13.1
 
 flutter:

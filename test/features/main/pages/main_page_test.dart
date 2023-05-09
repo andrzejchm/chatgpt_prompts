@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_presenter.dart';
@@ -15,6 +16,7 @@ import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 import 'package:chatgpt_prompts/features/settings/settings_initial_params.dart';
 import 'package:chatgpt_prompts/features/settings/settings_presenter.dart';
 import '../../../mocks/mocks.dart';
+import '../../../mocks/stubs.dart';
 import '../../../test_utils/golden_tests_utils.dart';
 import '../../../test_utils/test_utils.dart';
 import '../../prompts/mocks/prompts_mocks.dart';
@@ -29,7 +31,11 @@ Future<void> main() async {
   setUp(() {
     prepareAppForUnitTests();
     getIt.registerSingleton<PromptsRepository>(PromptsMocks.promptsRepository);
-    when(() => PromptsMocks.promptsRepository.getPromptsList()).thenAnswer((_) async => successFuture([]));
+    when(() => PromptsMocks.promptsRepository.getPromptsList()).thenAnswer(
+      (_) async => successFuture([]),
+    );
+    when(() => Mocks.getLocalPreferencesUseCase.execute()) //
+        .thenAnswer((_) async => success(Stubs.localPreferences));
   });
 
   void initMvp() {
@@ -44,6 +50,8 @@ Future<void> main() async {
     presenter = MainPresenter(
       model,
       navigator,
+      Mocks.getLocalPreferencesUseCase,
+      Mocks.saveLocalPreferencesUseCase,
     );
     page = MainPage(presenter: presenter);
   }

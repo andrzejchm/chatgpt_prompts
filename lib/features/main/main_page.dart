@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:bloc/bloc.dart';
+import 'package:chatgpt_prompts/core/domain/model/main_tab.dart';
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_page.dart';
 import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
@@ -23,6 +24,12 @@ class MainPage extends StatefulWidget with HasPresenter<MainPresenter> {
 }
 
 class _MainPageState extends State<MainPage> with PresenterStateMixin<MainViewModel, MainPresenter, MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    presenter.onInit();
+  }
+
   @override
   Widget build(BuildContext context) {
     return stateObserver(

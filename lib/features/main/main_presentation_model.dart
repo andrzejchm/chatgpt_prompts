@@ -1,3 +1,4 @@
+import 'package:chatgpt_prompts/core/domain/model/main_tab.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_presenter.dart';
 import 'package:chatgpt_prompts/features/main/main_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
@@ -71,10 +72,4 @@ abstract class MainViewModel {
   SettingsPresenter get settingsPresenter;
 
   PromptsPresenter get promptsPresenter;
-}
-
-enum MainTab {
-  chat,
-  prompts,
-  settings,
 }

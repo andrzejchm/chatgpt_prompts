@@ -1,6 +1,8 @@
 // ignore_for_file: unused-code, unused-files
 
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
+import 'package:chatgpt_prompts/core/domain/model/local_preferences.dart';
+import 'package:chatgpt_prompts/core/domain/model/main_tab.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk_choice.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
@@ -8,6 +10,10 @@ import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_r
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_variable.dart';
 
 class Stubs {
+  static LocalPreferences get localPreferences => const LocalPreferences(
+        mainTab: MainTab.chat,
+      );
+
   static CompletionStreamedChunk get completionStreamedChunk => CompletionStreamedChunk(
         id: 'id',
         created: DateTime.now().toIso8601String(),

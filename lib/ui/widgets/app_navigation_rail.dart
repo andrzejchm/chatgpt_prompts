@@ -1,4 +1,4 @@
-import 'package:chatgpt_prompts/features/main/main_presentation_model.dart';
+import 'package:chatgpt_prompts/core/domain/model/main_tab.dart';
 import 'package:chatgpt_prompts/localization/app_localizations_utils.dart';
 import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
