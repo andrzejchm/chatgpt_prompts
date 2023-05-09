@@ -100,6 +100,7 @@ class PromptsMocks {
 
     // REPOSITORIES
     promptsRepository = MockPromptsRepository();
+    promptsRepository = MockPromptsRepository();
 //DO-NOT-REMOVE REPOSITORIES_INIT_MOCKS
 
     // STORES
@@ -146,6 +147,7 @@ class PromptsMocks {
 //DO-NOT-REMOVE USE_CASE_MOCK_FALLBACK_VALUE
 
     // REPOSITORIES
+    registerFallbackValue(MockPromptsRepository());
     registerFallbackValue(MockPromptsRepository());
 //DO-NOT-REMOVE REPOSITORIES_MOCK_FALLBACK_VALUE
 

@@ -86,6 +86,7 @@ class MockExecutePromptUseCase extends Mock implements ExecutePromptUseCase {}
 
 // REPOSITORIES
 class MockPromptsRepository extends Mock implements PromptsRepository {}
+
 //DO-NOT-REMOVE REPOSITORIES_MOCK_DEFINITION
 
 // STORES

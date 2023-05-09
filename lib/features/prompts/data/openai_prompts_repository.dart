@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:chatgpt_prompts/core/data/openai/model/openai_chat_completion_transformers.dart';
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
+import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/logging.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/execute_prompt_failure.dart';
@@ -12,15 +13,17 @@ import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_rep
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 import 'package:dart_openai/openai.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class InMemoryPromptsRepository implements PromptsRepository {
-  const InMemoryPromptsRepository();
+class OpenaiPromptsRepository implements PromptsRepository {
+  const OpenaiPromptsRepository(
+    this.configProvider,
+  );
 
   static const defaultMaxTokens = 2048;
-
-  static const defaultCompletionModel = 'text-davinci-003';
   static const defaultChatModel = 'gpt-3.5-turbo';
+
+  final ConfigProvider configProvider;
+
   static final _templates = [
     Prompt(
       name: 'Create greeting',
@@ -65,6 +68,7 @@ Create new User entity class in {{language}}. It needs to contain the following 
 
   @override
   Future<GetPromptsListResult> getPromptsList() async {
+    //TODO implement real call to db
     //ignore: no-magic-number
     await Future.delayed(Duration(milliseconds: Random().nextInt(1000)));
     return success([..._templates]);
@@ -74,24 +78,8 @@ Create new User entity class in {{language}}. It needs to contain the following 
   Stream<ExecutePromptResult> executePrompt({
     required PromptExecutionRequest request,
   }) async* {
-    OpenAI.apiKey = dotenv.env['OPENAI_API_KEY'] ?? (throw 'Missing OpenAI api key');
+    OpenAI.apiKey = (await configProvider.getConfig()).openApiKey;
 
-    // final models = await OpenAI.instance.model.list();
-    // debugPrint(models.map((e) => e.id).join('\n'));
-    // try {
-    // yield* OpenAI.instance.completion
-    //     .createStream(
-    //   model: defaultCompletionModel,
-    //   prompt: 'Create a JSON for a user object consisting of username, id, roles, and permissions.',
-    //   maxTokens: defaultMaxTokens,
-    // )
-    //     .handleError((error) {
-    //   logError(error);
-    //   return failure(ExecutePromptFailure.unknown(error));
-    // }).map((event) => success(event.toChatCompletionResult()));
-    // } catch (ex, stack) {
-    //   logError(ex, stack);
-    // }
     const model = defaultChatModel;
     yield* OpenAI.instance.chat.createStream(
       model: model,
