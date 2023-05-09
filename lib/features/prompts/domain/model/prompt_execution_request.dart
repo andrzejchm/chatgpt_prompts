@@ -8,7 +8,11 @@ class PromptExecutionRequest extends Equatable {
     required this.variablesValues,
   });
 
+  const PromptExecutionRequest.empty()
+      : prompt = const Prompt.empty(),
+        variablesValues = const {};
   final Prompt prompt;
+
   final Map<String, String> variablesValues;
 
   @override
@@ -18,6 +22,14 @@ class PromptExecutionRequest extends Equatable {
       ];
 
   //copyWith
+
+  String compileTemplate() {
+    return prompt.template.replaceAllMapped(
+      RegExp(_wrapIntoVariable('(.*?)')),
+      (match) => variablesValues[match.group(1)] ?? _wrapIntoVariable(match.group(1)!),
+    );
+  }
+
   PromptExecutionRequest copyWith({
     Prompt? prompt,
     Map<String, String>? variablesValues,
@@ -27,4 +39,6 @@ class PromptExecutionRequest extends Equatable {
       variablesValues: variablesValues ?? this.variablesValues,
     );
   }
+
+  String _wrapIntoVariable(String slug) => '{{$slug}}';
 }

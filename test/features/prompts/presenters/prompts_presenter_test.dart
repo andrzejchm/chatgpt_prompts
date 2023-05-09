@@ -28,6 +28,7 @@ void main() {
       const PromptsInitialParams(),
       PromptsMocks.promptsListPresenter,
       PromptsMocks.promptDetailsPresenter,
+      PromptsMocks.promptExecutionPresenter,
     );
     navigator = MockPromptsNavigator();
     presenter = PromptsPresenter(

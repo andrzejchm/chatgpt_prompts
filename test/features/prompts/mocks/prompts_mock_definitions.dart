@@ -1,8 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:chatgpt_prompts/features/prompts/domain/model/execute_prompt_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompts_list_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_navigator.dart';
@@ -12,6 +14,10 @@ import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_i
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_navigator.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_presentation_model.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_navigator.dart';
@@ -57,12 +63,24 @@ class MockPromptDetailsInitialParams extends Mock implements PromptDetailsInitia
 
 class MockPromptDetailsNavigator extends Mock implements PromptDetailsNavigator {}
 
+class MockPromptExecutionPresenter extends MockCubit<PromptExecutionViewModel> implements PromptExecutionPresenter {}
+
+class MockPromptExecutionPresentationModel extends Mock implements PromptExecutionPresentationModel {}
+
+class MockPromptExecutionInitialParams extends Mock implements PromptExecutionInitialParams {}
+
+class MockPromptExecutionNavigator extends Mock implements PromptExecutionNavigator {}
+
 //DO-NOT-REMOVE MVP_MOCK_DEFINITION
 
 // USE CASES
 class MockGetPromptsListFailure extends Mock implements GetPromptsListFailure {}
 
 class MockGetPromptsListUseCase extends Mock implements GetPromptsListUseCase {}
+
+class MockExecutePromptFailure extends Mock implements ExecutePromptFailure {}
+
+class MockExecutePromptUseCase extends Mock implements ExecutePromptUseCase {}
 
 //DO-NOT-REMOVE USE_CASE_MOCK_DEFINITION
 

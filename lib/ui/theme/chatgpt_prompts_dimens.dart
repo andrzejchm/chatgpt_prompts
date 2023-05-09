@@ -6,6 +6,7 @@ class ChatgptPromptsDimens {
   final double spacingL = 16.0;
   final double spacingM = 8.0;
   final double spacingS = 4.0;
+  final double spacingXS = 2.0;
   // radius
   final double radiusXL = 32.0;
   final double radiusL = 16.0;

@@ -9,12 +9,9 @@ class WidgetRobot {
 
   const WidgetRobot(this.tester, this.finder);
 
-  Future<void> tap() async {
-    await tester.tap(finder);
-    await tester.pumpAndSettle();
-    // this makes sure all bloc emissions actually happen
-    await tester.runAsync(() => Future.value());
-  }
+  Future<void> tap() => tester.performUIAction(() async {
+        await tester.tap(finder);
+      });
 
   Future<void> isVisible({
     bool waitUntilVisible = true,
@@ -71,5 +68,15 @@ class WidgetRobot {
       await tester.pumpAndSettle();
     }
     await tester.pumpAndSettle();
+  }
+}
+
+extension WidgetTesterPerformUIAction on WidgetTester {
+//performUIAction method
+  Future<void> performUIAction(Future<void> Function() action) async {
+    await action();
+    await pumpAndSettle();
+    // this makes sure all bloc emissions actually happen
+    await runAsync(() => Future.value());
   }
 }

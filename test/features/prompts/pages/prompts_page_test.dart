@@ -1,10 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_initial_params.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presenter.dart';
@@ -39,6 +42,7 @@ Future<void> main() async {
       initParams,
       getIt<PromptsListPresenter>(param1: const PromptsListInitialParams()),
       getIt<PromptDetailsPresenter>(param1: const PromptDetailsInitialParams()),
+      getIt<PromptExecutionPresenter>(param1: const PromptExecutionInitialParams()),
     );
     navigator = PromptsNavigator(Mocks.appNavigator);
     presenter = PromptsPresenter(
@@ -50,6 +54,7 @@ Future<void> main() async {
 
   await screenshotTest(
     'prompts_page',
+    devices: [Device.tabletLandscape],
     setUp: () async {
       initMvp();
     },

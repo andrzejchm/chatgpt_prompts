@@ -1,4 +1,4 @@
-import 'package:chatgpt_prompts/core/utils/bloc_extensions.dart';
+import 'package:chatgpt_prompts/core/domain/model/future_result.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_initial_params.dart';

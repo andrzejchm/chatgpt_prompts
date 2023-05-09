@@ -1,0 +1,3 @@
+class PromptExecutionInitialParams {
+  const PromptExecutionInitialParams();
+}

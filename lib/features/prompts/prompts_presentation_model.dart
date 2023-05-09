@@ -1,4 +1,5 @@
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_list/prompts_list_presenter.dart';
 
@@ -10,27 +11,33 @@ class PromptsPresentationModel implements PromptsViewModel {
     PromptsInitialParams initialParams,
     this.promptsListPresenter,
     this.promptDetailsPresenter,
+    this.promptExecutionPresenter,
   );
 
   /// Used for the copyWith method
   PromptsPresentationModel._(
     this.promptsListPresenter,
     this.promptDetailsPresenter,
+    this.promptExecutionPresenter,
   );
 
   @override
   final PromptsListPresenter promptsListPresenter;
   @override
   final PromptDetailsPresenter promptDetailsPresenter;
+  @override
+  final PromptExecutionPresenter promptExecutionPresenter;
 
   //copyWith
   PromptsPresentationModel copyWith({
     PromptsListPresenter? promptsListPresenter,
     PromptDetailsPresenter? promptDetailsPresenter,
+    PromptExecutionPresenter? promptExecutionPresenter,
   }) {
     return PromptsPresentationModel._(
       promptsListPresenter ?? this.promptsListPresenter,
       promptDetailsPresenter ?? this.promptDetailsPresenter,
+      promptExecutionPresenter ?? this.promptExecutionPresenter,
     );
   }
 }
@@ -40,4 +47,6 @@ abstract class PromptsViewModel {
   PromptsListPresenter get promptsListPresenter;
 
   PromptDetailsPresenter get promptDetailsPresenter;
+
+  PromptExecutionPresenter get promptExecutionPresenter;
 }

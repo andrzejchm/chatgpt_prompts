@@ -2,10 +2,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_page.dart';
+import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
 import 'package:chatgpt_prompts/features/prompts/widgets/prompts_side_panel.dart';
-import 'package:chatgpt_prompts/ui/widgets/resizable_column.dart';
 import 'package:chatgpt_prompts/ui/widgets/resizable_row.dart';
 import 'package:flutter/material.dart';
 
@@ -36,11 +36,14 @@ class _PromptsPageState extends State<PromptsPage>
           ),
           details: (_) => stateObserver(
             builder: (context, state) {
-              return ResizableColumn(
-                top: (_) => PromptDetailsPage(
+              return ResizableRow(
+                reversed: true,
+                panel: (_) => PromptDetailsPage(
                   presenter: state.promptDetailsPresenter,
                 ),
-                bottom: (_) => const Placeholder(),
+                details: (_) => PromptExecutionPage(
+                  presenter: state.promptExecutionPresenter,
+                ),
               );
             },
           ),

@@ -1,13 +1,8 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:async';
 
-//ignore:prefer-match-file-name
-enum FutureStatus {
-  notStarted,
-  pending,
-  fulfilled,
-  rejected,
-}
+import 'package:chatgpt_prompts/core/domain/model/future_result.dart';
+import 'package:chatgpt_prompts/core/domain/model/stream_result.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 extension BlocExtensions<T> on BlocBase<T> {
   void tryEmit(T state) {
@@ -16,37 +11,6 @@ extension BlocExtensions<T> on BlocBase<T> {
       emit(state);
     }
   }
-}
-
-class FutureResult<T> extends Equatable {
-  const FutureResult(
-    this.result,
-    this.status,
-    this.error,
-  );
-
-  const FutureResult.empty()
-      : result = null,
-        error = null,
-        status = FutureStatus.notStarted;
-
-  const FutureResult.pending()
-      : result = null,
-        error = null,
-        status = FutureStatus.pending;
-
-  final T? result;
-  final FutureStatus status;
-  final dynamic error;
-
-  @override
-  List<Object?> get props => [
-        result,
-        status,
-        error,
-      ];
-
-  bool isPending() => status == FutureStatus.pending;
 }
 
 extension AsObservableFuture<T> on Future<T> {
@@ -71,5 +35,44 @@ extension AsObservableFuture<T> on Future<T> {
 
       throw error as Object;
     });
+  }
+}
+
+extension AsObservableStream<T> on Stream<T> {
+  void observeStatusChanges({
+    void Function(StreamResult<T>)? onStatusChange,
+    void Function(T)? onEmit,
+    required void Function(StreamSubscription<T>) onSubscribed,
+  }) {
+    // subscription should be handled in `onSubscribed` and properly disposed on call site.
+    //ignore: cancel_subscriptions
+    final subscription = listen(
+      (value) {
+        onStatusChange?.call(
+          //ignore: prefer-trailing-comma
+          StreamResult(value, StreamStatus.emission, null),
+        );
+        onEmit?.call(value);
+      },
+      onError: (error) {
+        onStatusChange?.call(
+          //ignore: prefer-trailing-comma
+          StreamResult(null, StreamStatus.rejected, error),
+        );
+
+        throw error as Object;
+      },
+      onDone: () {
+        onStatusChange?.call(
+          //ignore: prefer-trailing-comma
+          const StreamResult(null, StreamStatus.finished, null),
+        );
+      },
+    );
+    onSubscribed(subscription);
+    onStatusChange?.call(
+      //ignore: prefer-trailing-comma
+      const StreamResult(null, StreamStatus.pendingFirstEmission, null),
+    );
   }
 }

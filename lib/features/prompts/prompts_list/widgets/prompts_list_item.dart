@@ -25,6 +25,9 @@ class PromptsListItem extends StatelessWidget {
           prompt.description,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
+          style: textStylesOf(context).bodySmall?.copyWith(
+                color: colorsOf(context).onSurfaceVariant,
+              ),
         ),
         onTap: onTap,
       ),

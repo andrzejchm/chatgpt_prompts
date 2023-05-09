@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+
 import 'package:alchemist/alchemist.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
@@ -8,6 +10,7 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/core/helpers.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
+import 'package:chatgpt_prompts/core/utils/platforms.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/localization/app_localizations_utils.dart';
 import 'package:chatgpt_prompts/main.dart';
@@ -35,6 +38,8 @@ Future<void> configureDependenciesForTests() async {
 
 Future<void> preparePageTests(FutureOr<void> Function() testMain) async {
   overrideAppLocalizations(AppLocalizationsEn());
+  //makes sure fonts are rendering in tests properly (android uses roboto font by default in material theme)
+  Platforms.override = TargetPlatform.android;
   await loadAppFonts();
   await prepareAppForUnitTests();
   // ignore: do_not_use_environment

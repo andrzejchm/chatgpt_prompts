@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class AppProgressIndicator extends StatelessWidget {
   const AppProgressIndicator({
     super.key,
-    required this.strokeWidth,
+    this.strokeWidth = defaultStrokeWidth,
   });
-
+  static const defaultStrokeWidth = 4.0;
   static const minSize = 36.0;
 
   final double strokeWidth;

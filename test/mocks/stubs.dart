@@ -1,10 +1,30 @@
 // ignore_for_file: unused-code, unused-files
 
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk_choice.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_variable.dart';
 
 class Stubs {
+  static CompletionStreamedChunk get completionStreamedChunk => CompletionStreamedChunk(
+        id: 'id',
+        created: DateTime.now().toIso8601String(),
+        choice: const CompletionStreamedChunkChoice(
+          text: 'text',
+          index: 0,
+          finishReason: '',
+        ),
+        model: 'gpt-3.5-turbo',
+      );
+
+  static CompletionStreamedChunkChoice get completionStreamedChunkChoice => const CompletionStreamedChunkChoice(
+        text: 'text',
+        index: 0,
+        finishReason: '',
+      );
+
   static List<Prompt> get promptsList => List.generate(
         10,
         (index) => Stubs.prompt.copyWith(
@@ -27,17 +47,23 @@ class Stubs {
         createdAtUtc: DateTime.now().toIso8601String(),
         updatedAtUtc: DateTime.now().toIso8601String(),
         description: 'Description',
-        variables: [
+        variables: const [
           PromptTemplateVariable(
             slug: 'greeting',
-            position: promptTemplate.indexOf('{{greeting}}'),
             description: 'What user has said?',
           ),
           PromptTemplateVariable(
             slug: 'format',
-            position: promptTemplate.indexOf('{{format}}'),
             description: 'What format to output in?',
           ),
         ],
+      );
+
+  static PromptExecutionRequest get promptExecutionRequest => PromptExecutionRequest(
+        prompt: prompt,
+        variablesValues: const {
+          'greeting': 'Hello',
+          'format': 'JSON',
+        },
       );
 }

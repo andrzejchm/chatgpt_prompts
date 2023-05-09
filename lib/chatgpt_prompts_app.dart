@@ -34,17 +34,8 @@ class _ChatgptPromptsAppState extends State<ChatgptPromptsApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: home,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: appTheme.colorsLight,
-        scaffoldBackgroundColor: appTheme.colorsLight.background,
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        typography: appTheme.typographyLight,
-        colorScheme: appTheme.colorsDark,
-        scaffoldBackgroundColor: appTheme.colorsDark.background,
-      ),
+      theme: appTheme.lightTheme,
+      darkTheme: appTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       navigatorKey: AppNavigator.navigatorKey,
       localizationsDelegates: const [

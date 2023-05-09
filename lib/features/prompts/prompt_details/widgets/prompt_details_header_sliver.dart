@@ -1,4 +1,5 @@
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
+import 'package:chatgpt_prompts/localization/app_localizations_utils.dart';
 import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -18,11 +19,17 @@ class PromptDetailsHeaderSliver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyles = textStylesOf(context);
+    final colors = colorsOf(context);
+    final secondaryTextColor = colors.onSurfaceVariant;
+    final labelStyle = textStyles.labelSmall?.copyWith(
+      color: secondaryTextColor,
+    );
     return SliverToBoxAdapter(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Column(
@@ -38,7 +45,9 @@ class PromptDetailsHeaderSliver extends StatelessWidget {
                     Text(
                       key: const ValueKey('prompt_details_header_description'),
                       prompt.description,
-                      style: textStyles.labelSmall,
+                      style: textStyles.bodySmall?.copyWith(
+                        color: secondaryTextColor,
+                      ),
                     ),
                   ],
                 ),
@@ -49,14 +58,18 @@ class PromptDetailsHeaderSliver extends StatelessWidget {
               ),
             ],
           ),
-          const Text('#Template:'),
+          Gap(dimens.spacingXL),
+          Text(
+            appLocalizations.templateLabel,
+            style: labelStyle,
+          ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: colorsOf(context).tertiaryContainer,
+                    color: colors.tertiaryContainer,
                     borderRadius: BorderRadius.circular(dimens.radiusM),
                   ),
                   child: Padding(
@@ -65,9 +78,7 @@ class PromptDetailsHeaderSliver extends StatelessWidget {
                       prompt.template.replaceAll('\n', ''),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textStyles.labelSmall?.copyWith(
-                        color: colorsOf(context).onSurfaceVariant,
-                      ),
+                      style: labelStyle,
                     ),
                   ),
                 ),

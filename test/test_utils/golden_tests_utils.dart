@@ -10,12 +10,12 @@ import 'package:meta/meta.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
 import 'package:chatgpt_prompts/core/utils/durations.dart';
+import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'golden_test_device_scenario.dart';
 import 'test_utils.dart';
 
 final testDevices = [
-  Device.phone.copyWith(name: 'small phone'),
-  Device.iphone11.copyWith(name: 'iPhone 11'),
+  Device.tabletLandscape.copyWith(name: 'PC'),
 ];
 
 @isTest
@@ -27,6 +27,7 @@ Future<void> screenshotTest(
   required Widget Function() pageBuilder,
   List<String> tags = const ['golden'],
   List<Device>? devices,
+  List<ThemeData>? themes,
   Duration timeout = const Duration(seconds: 5),
 }) async {
   return preparePageTests(
@@ -37,12 +38,21 @@ Future<void> screenshotTest(
         setUp?.call();
         return GoldenTestGroup(
           children: (devices ?? testDevices) //
+              .expand(
+                (device) {
+                  final themesList = themes ?? [appTheme.lightTheme, appTheme.darkTheme];
+                  return themesList.map((theme) => MapEntry(theme, device));
+                },
+              )
               .map(
                 (it) => DefaultAssetBundle(
                   bundle: TestAssetBundle(),
                   child: GoldenTestDeviceScenario(
-                    device: it,
-                    builder: pageBuilder,
+                    device: it.value,
+                    builder: () => Theme(
+                      data: it.key,
+                      child: pageBuilder(),
+                    ),
                   ),
                 ),
               )

@@ -13,5 +13,17 @@
   "mainNavPrompts": "Prompts",
   "mainNavChat": "Chat",
   "mainNavSettings": "Settings",
-  "actionExecute": "Execute"
+  "actionExecute": "Execute",
+  "templateLabel": "Template",
+  "copyAction": "Copy",
+  "copiedToClipboard": "Copied to clipboard",
+  "resultsTitle": "Result",
+  "finishReasonFormat": "finish reason: {reason}",
+  "@finishReasonFormat": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  }
 }

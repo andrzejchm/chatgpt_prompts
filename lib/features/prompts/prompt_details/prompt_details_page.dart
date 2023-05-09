@@ -28,20 +28,19 @@ class _PromptDetailsPageState extends State<PromptDetailsPage>
   @override
   Widget build(BuildContext context) => stateObserver(
         builder: (context, state) {
-          final windowPadding = MediaQuery.of(context).padding;
-
           Widget horizontalPadding(Widget sliver) => SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: dimens.spacingM),
                 sliver: sliver,
               );
 
           return Scaffold(
-            body: Stack(
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Positioned.fill(
+                Expanded(
                   child: CustomScrollView(
                     slivers: [
-                      SliverGap(windowPadding.top),
+                      SliverGap(dimens.spacingM),
                       horizontalPadding(
                         PromptDetailsHeaderSliver(
                           prompt: state.prompt,
@@ -56,13 +55,12 @@ class _PromptDetailsPageState extends State<PromptDetailsPage>
                           onValueChanged: presenter.onVariableValueChanged,
                         ),
                       ),
-                      SliverGap(windowPadding.bottom + kToolbarHeight),
+                      SliverGap(dimens.spacingM),
                     ],
                   ),
                 ),
-                Positioned(
-                  bottom: dimens.spacingM,
-                  right: dimens.spacingM,
+                Padding(
+                  padding: EdgeInsets.all(dimens.spacingM),
                   child: ExecuteButton(presenter: presenter),
                 ),
               ],

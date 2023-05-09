@@ -4,6 +4,8 @@ import 'package:chatgpt_prompts/core/domain/model/chat_completion_result.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_role.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_usage.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_message.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk_choice.dart';
 import 'package:dart_openai/openai.dart';
 
 //ignore_for_file:prefer-match-file-name
@@ -72,4 +74,22 @@ extension ChatCompletionRoleTransformer on OpenAIChatMessageRole {
         return ChatCompletionRole.assistant;
     }
   }
+}
+
+extension CompletionStreamChunkTransformer on OpenAIStreamChatCompletionModel {
+  CompletionStreamedChunk toChatCompletionResult(String model) => CompletionStreamedChunk(
+        id: id,
+        created: created.toIso8601String(),
+        choice: choices.first.toChatCompletionChoice(),
+        model: model,
+      );
+}
+
+//extension on OpenAIStreamChatCompletionChoiceModel to create CompletionStreamedChunkChoice
+extension CompletionStreamChunkChoiceTransformer on OpenAIStreamChatCompletionChoiceModel {
+  CompletionStreamedChunkChoice toChatCompletionChoice() => CompletionStreamedChunkChoice(
+        index: index,
+        text: delta.content ?? '',
+        finishReason: finishReason ?? '',
+      );
 }

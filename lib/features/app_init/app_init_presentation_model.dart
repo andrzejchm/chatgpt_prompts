@@ -1,8 +1,8 @@
-import 'package:dartz/dartz.dart';
 import 'package:chatgpt_prompts/core/domain/model/app_init_failure.dart';
+import 'package:chatgpt_prompts/core/domain/model/future_result.dart';
 import 'package:chatgpt_prompts/core/domain/model/user.dart';
-import 'package:chatgpt_prompts/core/utils/bloc_extensions.dart';
 import 'package:chatgpt_prompts/features/app_init/app_init_initial_params.dart';
+import 'package:dartz/dartz.dart';
 
 /// Model used by presenter, contains fields that are relevant to presenters and implements ViewModel to expose data to view (page)
 class AppInitPresentationModel implements AppInitViewModel {

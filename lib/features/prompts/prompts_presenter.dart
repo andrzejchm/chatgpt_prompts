@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:chatgpt_prompts/core/helpers.dart';
 import 'package:chatgpt_prompts/core/utils/mvp_extensions.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
@@ -30,7 +29,6 @@ class PromptsPresenter extends Cubit<PromptsViewModel> with SubscriptionsMixin i
 
   @override
   void onExecutePrompt(PromptExecutionRequest request) {
-    // TODO implement onExecutePrompt
-    notImplemented();
+    _model.promptExecutionPresenter.onExecutePrompt(request);
   }
 }

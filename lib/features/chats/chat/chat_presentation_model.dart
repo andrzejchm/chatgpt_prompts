@@ -1,6 +1,6 @@
 import 'package:chatgpt_prompts/core/domain/model/chat_message.dart';
+import 'package:chatgpt_prompts/core/domain/model/future_result.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
-import 'package:chatgpt_prompts/core/utils/bloc_extensions.dart';
 import 'package:chatgpt_prompts/features/chats/chat/chat_initial_params.dart';
 
 /// Model used by presenter, contains fields that are relevant to presenters and implements ViewModel to expose data to view (page)

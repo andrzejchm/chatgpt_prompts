@@ -137,7 +137,7 @@ packages:
     source: hosted
     version: "1.1.1"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: cfc915e6923fe5ce6e153b0723c753045de46de1b4d63771530504004a45fae0
@@ -322,6 +322,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_markdown:
+    dependency: "direct main"
+    description:
+      name: flutter_markdown
+      sha256: "7b25c10de1fea883f3c4f9b8389506b54053cd00807beab69fd65c8653a2711f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.14"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -487,6 +495,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  markdown:
+    dependency: transitive
+    description:
+      name: markdown
+      sha256: "8e332924094383133cee218b676871f42db2514f1f6ac617b6cf6152a7faab8e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.1.0"
   matcher:
     dependency: transitive
     description:

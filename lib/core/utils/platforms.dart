@@ -5,9 +5,14 @@ import 'package:flutter/foundation.dart';
 class Platforms {
   const Platforms._();
 
+  static TargetPlatform? override;
+
   static bool get isDesktopPlatform => Platform.isMacOS || Platform.isWindows || Platform.isLinux;
 
   static TargetPlatform get currentPlatform {
+    if (override != null) {
+      return override!;
+    }
     if (kIsWeb) {
       return TargetPlatform.android;
     } else if (Platform.isMacOS) {

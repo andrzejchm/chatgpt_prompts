@@ -2,7 +2,6 @@ import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_va
 import 'package:chatgpt_prompts/ui/theme/app_theme.dart';
 import 'package:chatgpt_prompts/ui/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 class PromptVariableInput extends StatelessWidget {
   const PromptVariableInput({
@@ -26,9 +25,13 @@ class PromptVariableInput extends StatelessWidget {
             item.slug,
             style: textStyles.titleSmall?.copyWith(),
           ),
-          Gap(dimens.spacingM),
+          Text(
+            item.description,
+            style: textStyles.labelSmall?.copyWith(
+              color: colorsOf(context).onSurfaceVariant,
+            ),
+          ),
           AppTextField(
-            label: Text(item.description, style: textStyles.labelSmall),
             maxLines: null,
             style: textStyles.bodySmall,
             onChanged: onChanged,

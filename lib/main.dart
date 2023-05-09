@@ -40,7 +40,7 @@ Future<void> _setWindow() async {
   if (Platforms.isDesktopPlatform) {
     await windowManager.waitUntilReadyToShow(
       const WindowOptions(
-        minimumSize: Size(400, 300),
+        minimumSize: Size(700, 300),
       ),
       () async {
         // await windowManager.setAsFrameless();

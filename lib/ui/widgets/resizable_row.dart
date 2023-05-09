@@ -15,6 +15,7 @@ class ResizableRow extends StatefulWidget {
     super.key,
     required this.panel,
     required this.details,
+    this.reversed = false,
     this.initialPanelWidth = defaultMinPanelWidth,
     this.maxPanelWidth = defaultMaxPanelWidth,
     this.minPanelWidth = defaultMinPanelWidth,
@@ -27,7 +28,7 @@ class ResizableRow extends StatefulWidget {
   final double initialPanelWidth;
   final double maxPanelWidth;
   final double minDetailsWidth;
-
+  final bool reversed;
   final double minPanelWidth;
 
   @override
@@ -64,39 +65,40 @@ class _ResizableRowState extends State<ResizableRow> {
           max(minWidth, maxWidth),
         );
         _clampWidth(currentWidth);
+        final children = [
+          SizedBox(
+            width: currentWidth,
+            child: LayoutBuilder(
+              builder: (context, constraints) => widget.panel(
+                Size(constraints.maxWidth, constraints.maxHeight),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onPanUpdate: onPanUpdate,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.resizeColumn,
+              child: Container(
+                color: colorsOf(context).onBackground.withOpacity(resizerOpacity),
+                width: resizerWidth,
+                height: double.infinity,
+              ),
+            ),
+          ),
+          Expanded(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: widget.minDetailsWidth),
+              child: LayoutBuilder(
+                builder: (context, cs) => widget.details(
+                  Size(cs.maxWidth, cs.maxHeight),
+                ),
+              ),
+            ),
+          ),
+        ];
         return Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              width: currentWidth,
-              child: LayoutBuilder(
-                builder: (context, constraints) => widget.panel(
-                  Size(constraints.maxWidth, constraints.maxHeight),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onPanUpdate: onPanUpdate,
-              child: MouseRegion(
-                cursor: SystemMouseCursors.resizeColumn,
-                child: Container(
-                  color: colorsOf(context).onBackground.withOpacity(resizerOpacity),
-                  width: resizerWidth,
-                  height: double.infinity,
-                ),
-              ),
-            ),
-            Expanded(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: widget.minDetailsWidth),
-                child: LayoutBuilder(
-                  builder: (context, cs) => widget.details(
-                    Size(cs.maxWidth, cs.maxHeight),
-                  ),
-                ),
-              ),
-            ),
-          ],
+          children: widget.reversed ? children.reversed.toList() : children,
         );
       },
     );
@@ -106,7 +108,7 @@ class _ResizableRowState extends State<ResizableRow> {
     final moved = details.delta.dx;
 
     setState(() {
-      _clampWidth(currentWidth + moved);
+      _clampWidth(currentWidth + (widget.reversed ? -moved : moved));
     });
   }
 }

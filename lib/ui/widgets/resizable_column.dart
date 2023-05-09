@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 typedef SizedWidget = Widget Function(Size);
 
+// ignore_for_file: unused-code, unused-files
 class ResizableColumn extends StatefulWidget {
   static const defaultMinDetailsHeight = 100.0;
   static const defaultMinPanelHeight = 200.0;
