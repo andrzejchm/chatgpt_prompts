@@ -55,10 +55,12 @@ void main() {
           .execute(
             request: PromptExecutionRequest(
               prompt: Stubs.prompt,
-              variablesValues: const {
-                'greeting': 'Hello',
-                'format': 'json',
-              },
+              formData: Stubs.promptExecutionFormData.copyWith(
+                variablesValues: const {
+                  'greeting': 'Hello',
+                  'format': 'json',
+                },
+              ),
             ),
           )
           .toList();

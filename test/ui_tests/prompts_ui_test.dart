@@ -1,11 +1,12 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
 import '../features/prompts/mocks/prompts_mocks.dart';
 import '../mocks/stubs.dart';
 import '../test_utils/test_utils.dart';
@@ -26,6 +27,11 @@ void main() {
           .thenAnswer((_) async => successFuture(Stubs.promptsList));
       Mock.throwOnMissingStub();
       promptsPresenter = getIt<PromptsPresenter>(param1: const PromptsInitialParams());
+      when(
+        () => PromptsMocks.promptsRepository.getPromptExecutionFormData(
+          promptId: any(named: 'promptId'),
+        ),
+      ).thenAnswer((_) async => right(Stubs.promptExecutionFormData));
     },
   );
 

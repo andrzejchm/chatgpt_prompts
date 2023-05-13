@@ -10,6 +10,7 @@ import '../../../mocks/mocks.dart';
 import '../../../mocks/stubs.dart';
 import '../../../test_utils/golden_tests_utils.dart';
 import '../../../test_utils/test_utils.dart';
+import '../mocks/prompts_mocks.dart';
 
 Future<void> main() async {
   late PromptDetailsPage page;
@@ -31,6 +32,9 @@ Future<void> main() async {
     presenter = PromptDetailsPresenter(
       model,
       navigator,
+      Mocks.debouncer,
+      PromptsMocks.savePromptExecutionFormDataUseCase,
+      PromptsMocks.getPromptExecutionFormDataUseCase,
     );
     page = PromptDetailsPage(presenter: presenter);
   }

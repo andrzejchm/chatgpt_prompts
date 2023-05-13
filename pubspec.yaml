@@ -44,6 +44,10 @@ dependencies:
   # desktop-related
   window_manager: 0.3.2
 
+  # hive database
+  hive: 2.2.3
+  hive_flutter: 1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

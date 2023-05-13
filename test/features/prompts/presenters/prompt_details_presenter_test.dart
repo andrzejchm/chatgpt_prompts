@@ -3,8 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_presenter.dart';
+import '../../../mocks/mocks.dart';
 import '../../../test_utils/test_utils.dart';
 import '../mocks/prompts_mock_definitions.dart';
+import '../mocks/prompts_mocks.dart';
 
 void main() {
   late PromptDetailsPresentationModel model;
@@ -26,6 +28,9 @@ void main() {
     presenter = PromptDetailsPresenter(
       model,
       navigator,
+      Mocks.debouncer,
+      PromptsMocks.savePromptExecutionFormDataUseCase,
+      PromptsMocks.getPromptExecutionFormDataUseCase,
     );
   });
 }

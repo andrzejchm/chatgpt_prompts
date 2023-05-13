@@ -1,28 +1,36 @@
 import 'dart:math';
 
+import 'package:chatgpt_prompts/core/data/hive/hive_client.dart';
 import 'package:chatgpt_prompts/core/data/openai/model/openai_chat_completion_transformers.dart';
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
 import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/logging.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/execute_prompt_failure.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompt_execution_form_data_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_form_data.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_variable.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/save_prompt_execution_form_data_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_form_data_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_form_data_use_case.dart';
 import 'package:dart_openai/openai.dart';
 
 class OpenaiPromptsRepository implements PromptsRepository {
   const OpenaiPromptsRepository(
-    this.configProvider,
+    this._configProvider,
+    this._hiveClient,
   );
 
   static const defaultMaxTokens = 2048;
   static const defaultChatModel = 'gpt-3.5-turbo';
 
-  final ConfigProvider configProvider;
+  final ConfigProvider _configProvider;
+  final HiveClient _hiveClient;
 
   static final _templates = [
     Prompt(
@@ -53,7 +61,7 @@ class OpenaiPromptsRepository implements PromptsRepository {
       template: '''
 Create new User entity class in {{language}}. It needs to contain the following fields: username, id, roles, permissions. Wrap result into github markdown syntax with language hint'''
           .trim(),
-      id: const Id('id-greeting'),
+      id: const Id('id-create-user-object'),
       createdAtUtc: DateTime.now().toIso8601String(),
       updatedAtUtc: DateTime.now().toIso8601String(),
       description: 'Creates user object in specified language',
@@ -78,7 +86,7 @@ Create new User entity class in {{language}}. It needs to contain the following 
   Stream<ExecutePromptResult> executePrompt({
     required PromptExecutionRequest request,
   }) async* {
-    OpenAI.apiKey = (await configProvider.getConfig()).openApiKey;
+    OpenAI.apiKey = (await _configProvider.getConfig()).openApiKey;
 
     const model = defaultChatModel;
     yield* OpenAI.instance.chat.createStream(
@@ -95,5 +103,32 @@ Create new User entity class in {{language}}. It needs to contain the following 
     }).map((event) {
       return success(event.toChatCompletionResult(model));
     });
+  }
+
+  @override
+  Future<SavePromptExecutionFormDataResult> savePromptExecutionFormData({
+    required Id promptId,
+    required PromptExecutionFormData formData,
+  }) async {
+    return _hiveClient
+        .saveObject<PromptExecutionFormData>(
+          boxId: HiveBoxId.promptExecutionFormData,
+          objectKey: promptId.value,
+          object: formData,
+        )
+        .mapFailure(SavePromptExecutionFormDataFailure.unknown);
+  }
+
+  @override
+  Future<GetPromptExecutionFormDataResult> getPromptExecutionFormData({
+    required Id promptId,
+  }) {
+    return _hiveClient
+        .readObject<PromptExecutionFormData>(
+          boxId: HiveBoxId.promptExecutionFormData,
+          objectKey: promptId.value,
+        )
+        .mapSuccess((response) => response ?? const PromptExecutionFormData.empty())
+        .mapFailure((fail) => GetPromptExecutionFormDataFailure.unknown(fail));
   }
 }

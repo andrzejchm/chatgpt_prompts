@@ -1,4 +1,5 @@
 import 'package:chatgpt_prompts/core/data/dotenv_config_provider.dart';
+import 'package:chatgpt_prompts/core/data/hive/hive_client.dart';
 import 'package:chatgpt_prompts/core/data/shared_local_preferences_repository.dart';
 import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/domain/repositories/local_preferences_repository.dart';
@@ -7,6 +8,7 @@ import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use
 import 'package:chatgpt_prompts/core/domain/use_cases/get_local_preferences_use_case.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/save_local_preferences_use_case.dart';
 import 'package:chatgpt_prompts/core/utils/current_time_provider.dart';
+import 'package:chatgpt_prompts/core/utils/debouncer.dart';
 import 'package:chatgpt_prompts/features/app_init/dependency_injection/feature_component.dart' as app_init;
 import 'package:chatgpt_prompts/features/auth/dependency_injection/feature_component.dart' as auth;
 import 'package:chatgpt_prompts/features/chats/dependency_injection/feature_component.dart' as chats;
@@ -46,7 +48,15 @@ void _configureGeneralDependencies() {
         ..registerFactory<ConfigProvider>(
           () => DotenvConfigProvider(),
         )
-        ..registerFactory(() => const CurrentTimeProvider())
+        ..registerFactory(
+          () => const CurrentTimeProvider(),
+        )
+        ..registerFactory(
+          () => Debouncer(),
+        )
+        ..registerLazySingleton(
+          () => const HiveClient(),
+        )
       //DO-NOT-REMOVE GENERAL_DEPS_GET_IT_CONFIG
       ;
 }

@@ -52,6 +52,7 @@ class _PromptDetailsPageState extends State<PromptDetailsPage>
                       horizontalPadding(
                         PromptDetailsVariablesSliver(
                           prompt: state.prompt,
+                          formData: state.formData,
                           onValueChanged: presenter.onVariableValueChanged,
                         ),
                       ),

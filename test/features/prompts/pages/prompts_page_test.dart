@@ -1,7 +1,3 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_details/prompt_details_initial_params.dart';
@@ -15,6 +11,11 @@ import 'package:chatgpt_prompts/features/prompts/prompts_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
+import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:mocktail/mocktail.dart';
+
 import '../../../mocks/mocks.dart';
 import '../../../mocks/stubs.dart';
 import '../../../test_utils/golden_tests_utils.dart';
@@ -34,6 +35,11 @@ Future<void> main() async {
     when(() => PromptsMocks.promptsRepository.getPromptsList()).thenAnswer(
       (_) async => successFuture(Stubs.promptsList),
     );
+    when(
+      () => PromptsMocks.promptsRepository.getPromptExecutionFormData(
+        promptId: any(named: 'promptId'),
+      ),
+    ).thenAnswer((_) async => right(Stubs.promptExecutionFormData));
   });
 
   void initMvp() {

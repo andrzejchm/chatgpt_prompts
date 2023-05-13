@@ -18,7 +18,11 @@ void main() {
 
   test("compileTemplate should omit variables that don't exist in values", () {
     final compiledTemplate = Stubs.promptExecutionRequest //
-        .copyWith(variablesValues: {'greeting': 'Hello'}) //
+        .copyWith(
+          formData: Stubs.promptExecutionFormData.copyWith(
+            variablesValues: {'greeting': 'Hello'},
+          ),
+        ) //
         .compileTemplate();
 
     expect(

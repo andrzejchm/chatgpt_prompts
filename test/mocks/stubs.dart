@@ -6,6 +6,7 @@ import 'package:chatgpt_prompts/core/domain/model/main_tab.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk_choice.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_form_data.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_variable.dart';
 
@@ -67,7 +68,11 @@ class Stubs {
 
   static PromptExecutionRequest get promptExecutionRequest => PromptExecutionRequest(
         prompt: prompt,
-        variablesValues: const {
+        formData: promptExecutionFormData,
+      );
+
+  static PromptExecutionFormData get promptExecutionFormData => const PromptExecutionFormData(
+        variablesValues: {
           'greeting': 'Hello',
           'format': 'JSON',
         },

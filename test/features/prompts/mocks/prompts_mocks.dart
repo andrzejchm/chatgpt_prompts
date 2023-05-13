@@ -1,6 +1,7 @@
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_form_data.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'prompts_mock_definitions.dart';
 
 //DO-NOT-REMOVE IMPORTS_MOCKS
@@ -42,6 +43,12 @@ class PromptsMocks {
 
   static late MockExecutePromptFailure executePromptFailure;
   static late MockExecutePromptUseCase executePromptUseCase;
+
+  static late MockSavePromptExecutionFormDataFailure savePromptExecutionFormDataFailure;
+  static late MockSavePromptExecutionFormDataUseCase savePromptExecutionFormDataUseCase;
+
+  static late MockGetPromptExecutionFormDataFailure getPromptExecutionFormDataFailure;
+  static late MockGetPromptExecutionFormDataUseCase getPromptExecutionFormDataUseCase;
 
 //DO-NOT-REMOVE USE_CASE_MOCKS_STATIC_FIELD
 
@@ -96,6 +103,12 @@ class PromptsMocks {
     executePromptFailure = MockExecutePromptFailure();
     executePromptUseCase = MockExecutePromptUseCase();
 
+    savePromptExecutionFormDataFailure = MockSavePromptExecutionFormDataFailure();
+    savePromptExecutionFormDataUseCase = MockSavePromptExecutionFormDataUseCase();
+
+    getPromptExecutionFormDataFailure = MockGetPromptExecutionFormDataFailure();
+    getPromptExecutionFormDataUseCase = MockGetPromptExecutionFormDataUseCase();
+
 //DO-NOT-REMOVE USE_CASE_INIT_MOCKS
 
     // REPOSITORIES
@@ -144,6 +157,12 @@ class PromptsMocks {
     registerFallbackValue(MockExecutePromptFailure());
     registerFallbackValue(MockExecutePromptUseCase());
 
+    registerFallbackValue(MockSavePromptExecutionFormDataFailure());
+    registerFallbackValue(MockSavePromptExecutionFormDataUseCase());
+
+    registerFallbackValue(MockGetPromptExecutionFormDataFailure());
+    registerFallbackValue(MockGetPromptExecutionFormDataUseCase());
+
 //DO-NOT-REMOVE USE_CASE_MOCK_FALLBACK_VALUE
 
     // REPOSITORIES
@@ -154,5 +173,6 @@ class PromptsMocks {
     // STORES
     //DO-NOT-REMOVE STORES_MOCK_FALLBACK_VALUE
     registerFallbackValue(const PromptExecutionRequest.empty());
+    registerFallbackValue(const PromptExecutionFormData.empty());
   }
 }

@@ -1,7 +1,9 @@
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
-
+import 'package:chatgpt_prompts/features/prompts/data/openai_prompts_repository.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_form_data_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_page.dart';
@@ -27,8 +29,7 @@ import 'package:chatgpt_prompts/features/prompts/prompts_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_page.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presentation_model.dart';
 import 'package:chatgpt_prompts/features/prompts/prompts_presenter.dart';
-import 'package:chatgpt_prompts/features/prompts/data/openai_prompts_repository.dart';
-import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_form_data_use_case.dart';
 //DO-NOT-REMOVE APP_COMPONENT_IMPORTS
 
 /// registers all the dependencies in dependency graph in get_it package
@@ -54,6 +55,7 @@ void _configureRepositories() {
   getIt
         ..registerFactory<PromptsRepository>(
           () => OpenaiPromptsRepository(
+            getIt(),
             getIt(),
           ),
         )
@@ -81,6 +83,16 @@ void _configureUseCases() {
         )
         ..registerFactory<ExecutePromptUseCase>(
           () => ExecutePromptUseCase(
+            getIt(),
+          ),
+        )
+        ..registerFactory<SavePromptExecutionFormDataUseCase>(
+          () => SavePromptExecutionFormDataUseCase(
+            getIt(),
+          ),
+        )
+        ..registerFactory<GetPromptExecutionFormDataUseCase>(
+          () => GetPromptExecutionFormDataUseCase(
             getIt(),
           ),
         )
@@ -145,7 +157,13 @@ void _configureMvp() {
           (params, _) => PromptDetailsPresentationModel.initial(params),
         )
         ..registerFactoryParam<PromptDetailsPresenter, PromptDetailsInitialParams, dynamic>(
-          (params, _) => PromptDetailsPresenter(getIt(param1: params), getIt()),
+          (params, _) => PromptDetailsPresenter(
+            getIt(param1: params),
+            getIt(),
+            getIt(),
+            getIt(),
+            getIt(),
+          ),
         )
         ..registerFactoryParam<PromptDetailsPage, PromptDetailsInitialParams, dynamic>(
           (params, _) => PromptDetailsPage(presenter: getIt(param1: params)),
