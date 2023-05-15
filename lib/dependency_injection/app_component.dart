@@ -1,5 +1,6 @@
 import 'package:chatgpt_prompts/core/data/dotenv_config_provider.dart';
 import 'package:chatgpt_prompts/core/data/hive/hive_client.dart';
+import 'package:chatgpt_prompts/core/data/openai/open_ai_client.dart';
 import 'package:chatgpt_prompts/core/data/shared_local_preferences_repository.dart';
 import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/domain/repositories/local_preferences_repository.dart';
@@ -56,6 +57,9 @@ void _configureGeneralDependencies() {
         )
         ..registerLazySingleton(
           () => const HiveClient(),
+        )
+        ..registerLazySingleton(
+          () => OpenAIClient(getIt()),
         )
       //DO-NOT-REMOVE GENERAL_DEPS_GET_IT_CONFIG
       ;

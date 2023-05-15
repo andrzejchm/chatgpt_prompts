@@ -16,6 +16,7 @@ class PromptsPresenter extends Cubit<PromptsViewModel> with SubscriptionsMixin i
       onChange: (listState) {
         if (listState.selectedPrompt != _model.promptDetailsPresenter.state.prompt) {
           _model.promptDetailsPresenter.onPromptSelected(listState.selectedPrompt);
+          _model.promptExecutionPresenter.onPromptSelected(listState.selectedPrompt);
         }
       },
     );

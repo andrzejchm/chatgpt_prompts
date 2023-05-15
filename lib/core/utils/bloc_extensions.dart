@@ -42,6 +42,7 @@ extension AsObservableStream<T> on Stream<T> {
   void observeStatusChanges({
     void Function(StreamResult<T>)? onStatusChange,
     void Function(T)? onEmit,
+    void Function()? onDone,
     required void Function(StreamSubscription<T>) onSubscribed,
   }) {
     // subscription should be handled in `onSubscribed` and properly disposed on call site.
@@ -67,6 +68,7 @@ extension AsObservableStream<T> on Stream<T> {
           //ignore: prefer-trailing-comma
           const StreamResult(null, StreamStatus.finished, null),
         );
+        onDone?.call();
       },
     );
     onSubscribed(subscription);

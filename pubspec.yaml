@@ -54,7 +54,7 @@ dev_dependencies:
 
   # code analysis
   lint: 2.0.1
-  dart_code_metrics: 5.7.2
+  dart_code_metrics: 5.7.3
   custom_lint: 0.3.4
   clean_architecture_lints:
     path: tools/custom_lints/clean_architecture_lints

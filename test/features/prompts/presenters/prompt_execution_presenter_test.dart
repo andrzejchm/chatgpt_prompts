@@ -28,6 +28,8 @@ void main() {
       model,
       navigator,
       PromptsMocks.executePromptUseCase,
+      PromptsMocks.savePromptExecutionUseCase,
+      PromptsMocks.getPromptExecutionUseCase,
     );
   });
 }

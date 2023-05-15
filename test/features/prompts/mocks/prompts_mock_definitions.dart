@@ -2,14 +2,18 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/features/prompts/domain/model/execute_prompt_failure.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompt_execution_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompt_execution_form_data_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompts_list_failure.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/save_prompt_execution_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/save_prompt_execution_form_data_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_form_data_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_form_data_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_initial_params.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_navigator.dart';
 import 'package:chatgpt_prompts/features/prompts/edit_prompt/edit_prompt_presentation_model.dart';
@@ -93,6 +97,14 @@ class MockSavePromptExecutionFormDataUseCase extends Mock implements SavePromptE
 class MockGetPromptExecutionFormDataFailure extends Mock implements GetPromptExecutionFormDataFailure {}
 
 class MockGetPromptExecutionFormDataUseCase extends Mock implements GetPromptExecutionFormDataUseCase {}
+
+class MockSavePromptExecutionFailure extends Mock implements SavePromptExecutionFailure {}
+
+class MockSavePromptExecutionUseCase extends Mock implements SavePromptExecutionUseCase {}
+
+class MockGetPromptExecutionFailure extends Mock implements GetPromptExecutionFailure {}
+
+class MockGetPromptExecutionUseCase extends Mock implements GetPromptExecutionUseCase {}
 
 //DO-NOT-REMOVE USE_CASE_MOCK_DEFINITION
 

@@ -1,7 +1,8 @@
-import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_form_data.dart';
-import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_form_data.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'prompts_mock_definitions.dart';
 
 //DO-NOT-REMOVE IMPORTS_MOCKS
@@ -49,6 +50,12 @@ class PromptsMocks {
 
   static late MockGetPromptExecutionFormDataFailure getPromptExecutionFormDataFailure;
   static late MockGetPromptExecutionFormDataUseCase getPromptExecutionFormDataUseCase;
+
+  static late MockSavePromptExecutionFailure savePromptExecutionFailure;
+  static late MockSavePromptExecutionUseCase savePromptExecutionUseCase;
+
+  static late MockGetPromptExecutionFailure getPromptExecutionFailure;
+  static late MockGetPromptExecutionUseCase getPromptExecutionUseCase;
 
 //DO-NOT-REMOVE USE_CASE_MOCKS_STATIC_FIELD
 
@@ -109,6 +116,12 @@ class PromptsMocks {
     getPromptExecutionFormDataFailure = MockGetPromptExecutionFormDataFailure();
     getPromptExecutionFormDataUseCase = MockGetPromptExecutionFormDataUseCase();
 
+    savePromptExecutionFailure = MockSavePromptExecutionFailure();
+    savePromptExecutionUseCase = MockSavePromptExecutionUseCase();
+
+    getPromptExecutionFailure = MockGetPromptExecutionFailure();
+    getPromptExecutionUseCase = MockGetPromptExecutionUseCase();
+
 //DO-NOT-REMOVE USE_CASE_INIT_MOCKS
 
     // REPOSITORIES
@@ -163,6 +176,12 @@ class PromptsMocks {
     registerFallbackValue(MockGetPromptExecutionFormDataFailure());
     registerFallbackValue(MockGetPromptExecutionFormDataUseCase());
 
+    registerFallbackValue(MockSavePromptExecutionFailure());
+    registerFallbackValue(MockSavePromptExecutionUseCase());
+
+    registerFallbackValue(MockGetPromptExecutionFailure());
+    registerFallbackValue(MockGetPromptExecutionUseCase());
+
 //DO-NOT-REMOVE USE_CASE_MOCK_FALLBACK_VALUE
 
     // REPOSITORIES
@@ -174,5 +193,6 @@ class PromptsMocks {
     //DO-NOT-REMOVE STORES_MOCK_FALLBACK_VALUE
     registerFallbackValue(const PromptExecutionRequest.empty());
     registerFallbackValue(const PromptExecutionFormData.empty());
+    registerFallbackValue(const CompletionStreamedChunk.empty());
   }
 }

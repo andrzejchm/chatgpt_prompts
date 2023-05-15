@@ -1,38 +1,35 @@
 import 'dart:math';
 
 import 'package:chatgpt_prompts/core/data/hive/hive_client.dart';
-import 'package:chatgpt_prompts/core/data/openai/model/openai_chat_completion_transformers.dart';
+import 'package:chatgpt_prompts/core/data/openai/open_ai_client.dart';
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
-import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
-import 'package:chatgpt_prompts/core/utils/logging.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/execute_prompt_failure.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompt_execution_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/get_prompt_execution_form_data_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_form_data.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_template_variable.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/save_prompt_execution_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/save_prompt_execution_form_data_failure.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/repositories/prompts_repository.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_form_data_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_form_data_use_case.dart';
-import 'package:dart_openai/openai.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_use_case.dart';
+import 'package:chatgpt_prompts/utils/to_either_transformer.dart';
 
 class OpenaiPromptsRepository implements PromptsRepository {
   const OpenaiPromptsRepository(
-    this._configProvider,
     this._hiveClient,
+    this._openAIClient,
   );
 
-  static const defaultMaxTokens = 2048;
-  static const defaultChatModel = 'gpt-3.5-turbo';
-
-  final ConfigProvider _configProvider;
-  final HiveClient _hiveClient;
-
-  static final _templates = [
+  static List<Prompt> prompts = [
     Prompt(
       name: 'Create greeting',
       template: '''
@@ -73,36 +70,27 @@ Create new User entity class in {{language}}. It needs to contain the following 
       ],
     ),
   ];
+  final HiveClient _hiveClient;
+
+  final OpenAIClient _openAIClient;
 
   @override
   Future<GetPromptsListResult> getPromptsList() async {
     //TODO implement real call to db
     //ignore: no-magic-number
     await Future.delayed(Duration(milliseconds: Random().nextInt(1000)));
-    return success([..._templates]);
+    return success([...prompts]);
   }
 
   @override
   Stream<ExecutePromptResult> executePrompt({
     required PromptExecutionRequest request,
-  }) async* {
-    OpenAI.apiKey = (await _configProvider.getConfig()).openApiKey;
-
-    const model = defaultChatModel;
-    yield* OpenAI.instance.chat.createStream(
-      model: model,
-      messages: [
-        OpenAIChatCompletionChoiceMessageModel(
-          role: OpenAIChatMessageRole.user,
-          content: request.compileTemplate(),
-        ),
-      ],
-    ).handleError((error) {
-      logError(error);
-      return failure(ExecutePromptFailure.unknown(error));
-    }).map((event) {
-      return success(event.toChatCompletionResult(model));
-    });
+  }) {
+    return _openAIClient
+        .executePrompt(request: request) //
+        .toEither(
+          mapError: (err, stack) => ExecutePromptFailure.unknown(err),
+        );
   }
 
   @override
@@ -130,5 +118,32 @@ Create new User entity class in {{language}}. It needs to contain the following 
         )
         .mapSuccess((response) => response ?? const PromptExecutionFormData.empty())
         .mapFailure((fail) => GetPromptExecutionFormDataFailure.unknown(fail));
+  }
+
+  @override
+  Future<GetPromptExecutionResult> getPromptExecution({
+    required Id promptId,
+  }) {
+    return _hiveClient
+        .readObject<CompletionStreamedChunk>(
+          boxId: HiveBoxId.completionStreamedChunk,
+          objectKey: promptId.value,
+        )
+        .mapSuccess((response) => response ?? const CompletionStreamedChunk.empty())
+        .mapFailure((fail) => GetPromptExecutionFailure.unknown(fail));
+  }
+
+  @override
+  Future<SavePromptExecutionResult> savePromptExecution({
+    required Id promptId,
+    required CompletionStreamedChunk streamedChunk,
+  }) {
+    return _hiveClient
+        .saveObject<CompletionStreamedChunk>(
+          boxId: HiveBoxId.completionStreamedChunk,
+          objectKey: promptId.value,
+          object: streamedChunk,
+        )
+        .mapFailure(SavePromptExecutionFailure.unknown);
   }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../utils/ui_test_utils.dart';
@@ -27,15 +29,34 @@ class WidgetRobot {
     );
   }
 
-  Future<void> hasText(String text) async {
+  Future<void> hasDisplayedText(String text) async {
     await waitUntilVisible();
-    expect(
-      AllOfFinder([
-        finder,
-        find.text(text),
-      ]),
-      findsOneWidget,
-    );
+    final widgets = AllOfFinder([
+      finder,
+      find.text(text),
+    ]).evaluate();
+    if (widgets.length != 1) {
+      throw "Expected to find exactly one widget with text '$text', but found ${widgets.length}";
+    }
+  }
+
+  Future<void> hasInputText(String text) async {
+    final stack = StackTrace.current;
+    await waitUntilVisible();
+    try {
+      final widgets = find
+          .byWidgetPredicate(
+            (widget) => widget is TextFormField && widget.controller?.text == text,
+            description: "TextField filled with '$text'",
+          )
+          .evaluate();
+      if (widgets.length != 1) {
+        throw "Expected to find exactly one TextFormField with text '$text', but found ${widgets.length}";
+      }
+    } catch (_) {
+      debugPrint('Exception in $hasInputText at: \n$stack');
+      rethrow;
+    }
   }
 
   Future<void> isNotVisible({bool waitUntilInvisible = true}) async {
@@ -54,8 +75,11 @@ class WidgetRobot {
   }) async {
     final start = DateTime.now();
     while (finder.evaluate().isEmpty && DateTime.now().difference(start) < timeout) {
-      await tester.pumpAndSettle();
       await tester.runAsync(() => Future.value());
+      await tester.pumpAndSettle();
+    }
+    if (finder.evaluate().isEmpty) {
+      throw Exception('Widget is not visible: ${finder.description}');
     }
     await tester.pumpAndSettle();
   }
@@ -69,6 +93,13 @@ class WidgetRobot {
     }
     await tester.pumpAndSettle();
   }
+
+  Future<void> typeText(String text) => tester.performUIAction(
+        () async {
+          await tap();
+          return tester.enterText(finder, text);
+        },
+      );
 }
 
 extension WidgetTesterPerformUIAction on WidgetTester {

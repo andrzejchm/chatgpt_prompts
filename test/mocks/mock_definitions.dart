@@ -1,10 +1,13 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:chatgpt_prompts/core/data/hive/hive_client.dart';
+import 'package:chatgpt_prompts/core/data/openai/open_ai_client.dart';
 import 'package:chatgpt_prompts/core/domain/model/create_chat_completion_failure.dart';
 import 'package:chatgpt_prompts/core/domain/model/get_local_preferences_failure.dart';
 import 'package:chatgpt_prompts/core/domain/model/save_local_preferences_failure.dart';
 import 'package:chatgpt_prompts/core/domain/model/user.dart';
+import 'package:chatgpt_prompts/core/domain/providers/config_provider.dart';
 import 'package:chatgpt_prompts/core/domain/repositories/local_preferences_repository.dart';
 import 'package:chatgpt_prompts/core/domain/stores/user_store.dart';
 import 'package:chatgpt_prompts/core/domain/use_cases/create_chat_completion_use_case.dart';
@@ -54,3 +57,9 @@ class MockDebouncer extends Mock implements Debouncer {}
 class MockPeriodicTaskExecutor extends Mock implements PeriodicTaskExecutor {}
 
 class MockCurrentTimeProvider extends Mock implements CurrentTimeProvider {}
+
+class MockConfigProvider extends Mock implements ConfigProvider {}
+
+class MockHiveClient extends Mock implements HiveClient {}
+
+class MockOpenAIClient extends Mock implements OpenAIClient {}

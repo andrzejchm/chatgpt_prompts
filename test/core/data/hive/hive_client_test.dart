@@ -26,6 +26,12 @@ void main() {
     object: () => Stubs.promptExecutionFormData,
     boxId: HiveBoxId.promptExecutionFormData,
   );
+
+  testTypeAdapter(
+    client: () => hiveClient,
+    object: () => Stubs.completionStreamedChunk,
+    boxId: HiveBoxId.completionStreamedChunk,
+  );
 }
 
 @isTest
@@ -36,13 +42,16 @@ void testTypeAdapter<T>({
 }) =>
     test('should read and write $T to ${boxId.name}', () async {
       final saveResult = await client().saveObject<T>(
-        boxId: HiveBoxId.promptExecutionFormData,
+        boxId: boxId,
         objectKey: '123',
         object: object(),
       );
       expect(saveResult.isSuccess, true);
 
-      final readResult = await client().readObject<T>(boxId: HiveBoxId.promptExecutionFormData, objectKey: '123');
+      final readResult = await client().readObject<T>(
+        boxId: boxId,
+        objectKey: '123',
+      );
       expect(readResult.isSuccess, true);
 
       expect(readResult.getSuccess(), object());

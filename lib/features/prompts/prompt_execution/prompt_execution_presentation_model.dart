@@ -1,5 +1,6 @@
 import 'package:chatgpt_prompts/core/domain/model/stream_result.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/prompt_execution/prompt_execution_initial_params.dart';
@@ -12,6 +13,7 @@ class PromptExecutionPresentationModel implements PromptExecutionViewModel {
     PromptExecutionInitialParams initialParams,
   )   : request = const PromptExecutionRequest.empty(),
         chunkedResponse = const CompletionStreamedChunk.empty(),
+        prompt = const Prompt.empty(),
         executionResult = const StreamResult.empty();
 
   /// Used for the copyWith method
@@ -19,6 +21,7 @@ class PromptExecutionPresentationModel implements PromptExecutionViewModel {
     this.request,
     this.executionResult,
     this.chunkedResponse,
+    this.prompt,
   );
 
   @override
@@ -27,6 +30,7 @@ class PromptExecutionPresentationModel implements PromptExecutionViewModel {
 
   @override
   final StreamResult<ExecutePromptResult> executionResult;
+  final Prompt prompt;
 
   @override
   String get finishReason => chunkedResponse.choice.finishReason;
@@ -39,11 +43,13 @@ class PromptExecutionPresentationModel implements PromptExecutionViewModel {
     PromptExecutionRequest? request,
     StreamResult<ExecutePromptResult>? executionResult,
     CompletionStreamedChunk? chunkedResponse,
+    Prompt? prompt,
   }) {
     return PromptExecutionPresentationModel._(
       request ?? this.request,
       executionResult ?? this.executionResult,
       chunkedResponse ?? this.chunkedResponse,
+      prompt ?? this.prompt,
     );
   }
 }

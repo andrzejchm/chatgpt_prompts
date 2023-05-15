@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:chatgpt_prompts/core/data/hive/hive_type_adapters.dart';
 import 'package:chatgpt_prompts/core/data/hive/model/read_hive_object_failure.dart';
 import 'package:chatgpt_prompts/core/data/hive/model/save_hive_object_failure.dart';
@@ -15,7 +17,7 @@ class HiveClient {
   /// convenient to set the path if the client is initialized in tests
   final String? initPath;
 
-  static bool _initialized = false;
+  static Completer<void>? _initializationCompleter;
 
   Future<Either<SaveHiveObjectFailure, Unit>> saveObject<T>({
     required HiveBoxId boxId,
@@ -24,9 +26,8 @@ class HiveClient {
   }) async {
     try {
       await initialize();
-      final box = Hive.isBoxOpen(boxId.stringName)
-          ? Hive.lazyBox<T>(boxId.stringName)
-          : await Hive.openLazyBox<T>(boxId.stringName);
+      final isBoxOpen = Hive.isBoxOpen(boxId.stringName);
+      final box = isBoxOpen ? Hive.lazyBox<T>(boxId.stringName) : await Hive.openLazyBox<T>(boxId.stringName);
       await box.put(objectKey, object);
       return success(unit);
     } catch (ex, stack) {
@@ -41,9 +42,8 @@ class HiveClient {
   }) async {
     try {
       await initialize();
-      final box = Hive.isBoxOpen(boxId.stringName)
-          ? Hive.lazyBox<T>(boxId.stringName)
-          : await Hive.openLazyBox<T>(boxId.stringName);
+      final isBoxOpen = Hive.isBoxOpen(boxId.stringName);
+      final box = isBoxOpen ? Hive.lazyBox<T>(boxId.stringName) : await Hive.openLazyBox<T>(boxId.stringName);
       final object = await box.get(objectKey);
       return success(object);
     } catch (ex, stack) {
@@ -54,20 +54,26 @@ class HiveClient {
 
   @visibleForTesting
   Future<void> initialize() async {
-    if (!_initialized) {
+    var completer = _initializationCompleter;
+    if (completer == null) {
+      _initializationCompleter = completer = Completer();
       if (initPath == null) {
+        debugLog('Initializing Hive with initFlutter');
         await Hive.initFlutter();
       } else {
+        debugLog('Initializing Hive at $initPath');
         Hive.init(initPath);
       }
       hiveTypeAdapters();
-      _initialized = true;
+      _initializationCompleter?.complete();
     }
+    return completer.future;
   }
 }
 
 enum HiveBoxId {
   promptExecutionFormData('prompt_execution_form_data'),
+  completionStreamedChunk('completion_streamed_chunk'),
   prompts('prompts');
 
   const HiveBoxId(this.stringName);

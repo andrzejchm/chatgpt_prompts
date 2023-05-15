@@ -1,10 +1,13 @@
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_form_data.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt_execution_request.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/execute_prompt_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_form_data_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompts_list_use_case.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_form_data_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_use_case.dart';
 
 abstract class PromptsRepository {
   Future<GetPromptsListResult> getPromptsList();
@@ -19,6 +22,15 @@ abstract class PromptsRepository {
   });
 
   Future<GetPromptExecutionFormDataResult> getPromptExecutionFormData({
+    required Id promptId,
+  });
+
+  Future<SavePromptExecutionResult> savePromptExecution({
+    required Id promptId,
+    required CompletionStreamedChunk streamedChunk,
+  });
+
+  Future<GetPromptExecutionResult> getPromptExecution({
     required Id promptId,
   });
 }

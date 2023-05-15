@@ -4,24 +4,25 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
-import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_form_data_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/save_prompt_execution_use_case.dart';
 import '../../../mocks/stubs.dart';
 import '../../../test_utils/test_utils.dart';
 import '../mocks/prompts_mocks.dart';
 
 void main() {
-  late GetPromptExecutionFormDataUseCase useCase;
+  late SavePromptExecutionUseCase useCase;
 
   setUp(() {
     prepareAppForUnitTests();
-    useCase = GetPromptExecutionFormDataUseCase(
+    useCase = SavePromptExecutionUseCase(
       PromptsMocks.promptsRepository,
     );
     when(
-      () => PromptsMocks.promptsRepository.getPromptExecutionFormData(
+      () => PromptsMocks.promptsRepository.savePromptExecution(
         promptId: any(named: 'promptId'),
+        streamedChunk: any(named: 'streamedChunk'),
       ),
-    ).thenAnswer((_) async => right(Stubs.promptExecutionFormData));
+    ).thenAnswer((_) async => success(unit));
   });
 
   test(
@@ -32,6 +33,7 @@ void main() {
       // WHEN
       final result = await useCase.execute(
         promptId: Stubs.prompt.id,
+        streamedChunk: Stubs.completionStreamedChunk,
       );
 
       // THEN
@@ -40,7 +42,7 @@ void main() {
   );
 
   test('getIt resolves successfully', () async {
-    final useCase = getIt<GetPromptExecutionFormDataUseCase>();
+    final useCase = getIt<SavePromptExecutionUseCase>();
     expect(useCase, isNotNull);
   });
 }

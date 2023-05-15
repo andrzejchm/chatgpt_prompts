@@ -1,27 +1,26 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
-import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_form_data_use_case.dart';
+import 'package:chatgpt_prompts/features/prompts/domain/use_cases/get_prompt_execution_use_case.dart';
 import '../../../mocks/stubs.dart';
 import '../../../test_utils/test_utils.dart';
 import '../mocks/prompts_mocks.dart';
 
 void main() {
-  late GetPromptExecutionFormDataUseCase useCase;
+  late GetPromptExecutionUseCase useCase;
 
   setUp(() {
     prepareAppForUnitTests();
-    useCase = GetPromptExecutionFormDataUseCase(
+    useCase = GetPromptExecutionUseCase(
       PromptsMocks.promptsRepository,
     );
     when(
-      () => PromptsMocks.promptsRepository.getPromptExecutionFormData(
+      () => PromptsMocks.promptsRepository.getPromptExecution(
         promptId: any(named: 'promptId'),
       ),
-    ).thenAnswer((_) async => right(Stubs.promptExecutionFormData));
+    ).thenAnswer((_) async => success(Stubs.completionStreamedChunk));
   });
 
   test(
@@ -40,7 +39,7 @@ void main() {
   );
 
   test('getIt resolves successfully', () async {
-    final useCase = getIt<GetPromptExecutionFormDataUseCase>();
+    final useCase = getIt<GetPromptExecutionUseCase>();
     expect(useCase, isNotNull);
   });
 }

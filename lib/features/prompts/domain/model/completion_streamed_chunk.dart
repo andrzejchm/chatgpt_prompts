@@ -1,3 +1,4 @@
+import 'package:chatgpt_prompts/core/domain/model/id.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk_choice.dart';
 import 'package:equatable/equatable.dart';
 
@@ -10,13 +11,13 @@ class CompletionStreamedChunk extends Equatable {
   });
 
   const CompletionStreamedChunk.empty()
-      : id = '',
+      : id = const Id.empty(),
         created = '1970-01-01T00:00:00.000000Z',
         choice = const CompletionStreamedChunkChoice.empty(),
         model = '';
 
   /// The ID of the completion.
-  final String id;
+  final Id id;
 
   /// The date the completion was created.
   final String created;
@@ -46,7 +47,7 @@ class CompletionStreamedChunk extends Equatable {
 
   //copyWith
   CompletionStreamedChunk copyWith({
-    String? id,
+    Id? id,
     String? created,
     CompletionStreamedChunkChoice? choice,
     String? model,

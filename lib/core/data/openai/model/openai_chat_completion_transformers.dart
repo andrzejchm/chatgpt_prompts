@@ -4,6 +4,7 @@ import 'package:chatgpt_prompts/core/domain/model/chat_completion_result.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_role.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_completion_usage.dart';
 import 'package:chatgpt_prompts/core/domain/model/chat_message.dart';
+import 'package:chatgpt_prompts/core/domain/model/id.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/completion_streamed_chunk_choice.dart';
 import 'package:dart_openai/openai.dart';
@@ -78,7 +79,7 @@ extension ChatCompletionRoleTransformer on OpenAIChatMessageRole {
 
 extension CompletionStreamChunkTransformer on OpenAIStreamChatCompletionModel {
   CompletionStreamedChunk toChatCompletionResult(String model) => CompletionStreamedChunk(
-        id: id,
+        id: Id(id),
         created: created.toIso8601String(),
         choice: choices.first.toChatCompletionChoice(),
         model: model,

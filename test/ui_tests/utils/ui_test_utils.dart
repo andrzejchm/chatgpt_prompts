@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:meta/meta.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:recase/recase.dart';
 
+import 'package:chatgpt_prompts/core/utils/platforms.dart';
 import 'package:chatgpt_prompts/dependency_injection/app_component.dart';
 import '../../mocks/mocks.dart';
 import 'ui_test_app.dart';
@@ -18,6 +20,7 @@ Future<void> prepareIntegrationTests() async {
   getIt.allowReassignment = true;
   Mocks.init();
   configureDependencies();
+  Mock.throwOnMissingStub();
 }
 
 @isTest
@@ -32,6 +35,7 @@ void uiTest(
     (widgetTester) async {
       try {
         await loadAppFonts();
+        Platforms.override = TargetPlatform.android;
         await prepare(widgetTester);
         await widgetTester.pumpWidget(
           UITestApp(child: createPage()),

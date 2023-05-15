@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
+
+import 'package:mocktail/mocktail.dart';
+
 import 'package:chatgpt_prompts/core/domain/model/displayable_failure.dart';
 import 'package:chatgpt_prompts/core/domain/model/id.dart';
 import 'package:chatgpt_prompts/core/domain/model/local_preferences.dart';
 import 'package:chatgpt_prompts/core/utils/periodic_task_executor.dart';
 import 'package:chatgpt_prompts/navigation/app_navigator.dart';
-import 'package:flutter/material.dart';
-import 'package:mocktail/mocktail.dart';
-
 import '../features/app_init/mocks/app_init_mocks.dart';
 import '../features/auth/mocks/auth_mocks.dart';
 import '../features/chats/mocks/chats_mocks.dart';
@@ -52,6 +53,11 @@ class Mocks {
   static late MockPeriodicTaskExecutor periodicTaskExecutor;
   static late MockCurrentTimeProvider currentTimeProvider;
 
+  static late MockConfigProvider configProvider;
+
+  static late MockHiveClient hiveClient;
+  static late MockOpenAIClient openAIClient;
+
   static void init() {
     AppInitMocks.init();
     AuthMocks.init();
@@ -95,6 +101,9 @@ class Mocks {
     debouncer = MockDebouncer();
     periodicTaskExecutor = MockPeriodicTaskExecutor();
     currentTimeProvider = MockCurrentTimeProvider();
+
+    openAIClient = MockOpenAIClient();
+    hiveClient = MockHiveClient();
   }
 
   static void _initFallbacks() {

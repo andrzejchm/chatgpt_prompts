@@ -16,12 +16,12 @@ class Stubs {
       );
 
   static CompletionStreamedChunk get completionStreamedChunk => CompletionStreamedChunk(
-        id: 'id',
-        created: DateTime.now().toIso8601String(),
+        id: const Id('id'),
+        created: DateTime(2023, 05, 14, 12, 30, 34).toIso8601String(),
         choice: const CompletionStreamedChunkChoice(
           text: 'text',
           index: 0,
-          finishReason: '',
+          finishReason: 'stop',
         ),
         model: 'gpt-3.5-turbo',
       );

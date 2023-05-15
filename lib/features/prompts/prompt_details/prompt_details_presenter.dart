@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:chatgpt_prompts/core/helpers.dart';
 import 'package:chatgpt_prompts/core/utils/bloc_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/debouncer.dart';
-import 'package:chatgpt_prompts/core/utils/durations.dart';
 import 'package:chatgpt_prompts/core/utils/either_extensions.dart';
 import 'package:chatgpt_prompts/core/utils/logging.dart';
 import 'package:chatgpt_prompts/features/prompts/domain/model/prompt.dart';
@@ -33,6 +32,11 @@ class PromptDetailsPresenter extends Cubit<PromptDetailsViewModel> {
   PromptDetailsPresentationModel get _model => state as PromptDetailsPresentationModel;
 
   void onPromptSelected(Prompt prompt) {
+    if (_model.prompt != const Prompt.empty()) {
+      _saveFormData();
+      _debouncer.cancel();
+    }
+
     tryEmit(
       _model.copyWith(
         prompt: prompt,
@@ -67,41 +71,38 @@ class PromptDetailsPresenter extends Cubit<PromptDetailsViewModel> {
         ),
       ),
     );
-    _saveFormData();
+    _debouncer.debounce(
+      const Duration(seconds: 1),
+      () => _saveFormData(),
+    );
   }
 
   void setEventsListener(PromptDetailsEventsListener eventsListener) {
     _eventsListener = eventsListener;
   }
 
-  void _saveFormData() {
+  Future<void> _saveFormData() async {
     final request = _model.promptExecutionRequest;
-    _debouncer.debounce(
-      const LongDuration(),
-      () {
-        debugLog('Saving form data for prompt ${request.prompt.id}: ${request.formData}');
-        return _savePromptExecutionFormDataUseCase.execute(
+    await _savePromptExecutionFormDataUseCase
+        .execute(
           formData: request.formData,
           promptId: request.prompt.id,
+        )
+        .doOn(
+          fail: logError,
         );
-      },
-    );
   }
 
-  void _loadFormData() {
+  Future<void> _loadFormData() async {
     final promptId = _model.prompt.id;
-    _getPromptExecutionFormDataUseCase
-        .execute(
-      promptId: promptId,
-    )
-        .doOn(
-      success: (data) {
-        debugLog('Loaded form data for prompt $promptId: $data');
-        if (_model.prompt.id == promptId) {
-          tryEmit(_model.copyWith(formData: data));
-        }
-      },
-    );
+    await _getPromptExecutionFormDataUseCase.execute(promptId: promptId).doOn(
+          fail: logError,
+          success: (data) {
+            if (_model.prompt.id == promptId) {
+              tryEmit(_model.copyWith(formData: data));
+            }
+          },
+        );
   }
 }
 

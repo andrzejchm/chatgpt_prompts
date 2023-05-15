@@ -30,6 +30,8 @@ Future<void> main() async {
       model,
       navigator,
       PromptsMocks.executePromptUseCase,
+      PromptsMocks.savePromptExecutionUseCase,
+      PromptsMocks.getPromptExecutionUseCase,
     );
     page = PromptExecutionPage(presenter: presenter);
   }
